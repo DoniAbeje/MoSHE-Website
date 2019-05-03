@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>News</title>
+    <link th:href="@{/vendor/bootstrap/css/bootstrap-simplex.css}" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+          integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville" rel="stylesheet">
+
+    <style>
+        .custom-text-primary {
+            color: #056f8f !important;
+        }
+
+        .custom-badge-primary {
+            color: #fff;
+            background-color: #056f8f;
+        }
+
+        body {
+            background: #fff;
+            font-family: 'Libre Baskerville', serif, "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            font-size: 0.8125rem;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+
+        .content-form {
+            background: #fcfcfc;
+
+        }
+
+    </style>
+</head>
+<body>
+
+<div th:replace="fragments/fragments :: admin-navigation"></div>
+<!-- Container -->
+<div class="container custom-text-primary">
+    <div class="row mt-5">
+
+        <div class="col-lg-3 ">
+            <div class="form-group ">
+                <input th:type="text" hidden="hidden" name="sort" th:value="${Sort}">
+                <input type="email" class="form-control" id="keyword-input" name="keyword" placeholder="Search" th:attrappend="value=${Keyword != null}?${Keyword}"
+                       required>
+            </div>
+        </div>
+
+
+
+        <div class="form-group col-lg-2 ">
+            <a th:if="${Keyword != null}" class="btn btn-secondary text-primary" href="/news">Clear</a>
+            <button type="button" id="search-button" name="submit"
+                    class="btn custom-badge-primary">Go!</button>
+        </div>
+
+        <div th:if="${Keyword == null}" class="col-lg-3 ">
+            <div class="form-group ">
+                <select id="sort"  class="form-control">
+                    <option class="sort-list" th:attrappend="selected=${Sort == 'deadline'}?selected"  value="dateTime">Sort by Date Published </option>
+
+                    <option class="sort-list" th:attrappend="selected=${Sort == 'title'}?selected" value="title">Sort by title </option>
+                </select>
+            </div>
+
+
+        </div>
+
+        <div th:if="${Keyword == null}" class="col-lg-3">
+            <div class="form-group ">
+                <select id="ascending"  class="form-control">
+                    <option class="sort-list" th:attrappend="selected=${Ascending == 1}?selected"  value="1">Ascending </option>
+
+                    <option class="sort-list" th:attrappend="selected=${Ascending != 1}?selected" value="0">Descending </option>
+                </select>
+            </div>
+        </div>
+
+
+
+
+    </div>
+
+    <div class="row">
+        <div class="col-lg-3">
+            <a class="btn btn-secondary" th:href="@{/addNews}"><i class="fa fa-plus"></i> New </a>
+        </div>
+    </div>
+
+  <div class="row">
+     <div class="col-lg-12">
+         <table class="table table-striped table-bordered content-form shadow mt-2">
+             <tr><th>Title</th> <th>Date Published</th></tr>
+             <tr th:each="news : ${News}"><td class="" th:text="${news.title}"></td><td   width="20%" th:text="${news.dateTime}"></td><td width="20%"><a class="btn btn-secondary custom-text-primary" th:href="|/editNews/${news.getID()}|"><i class="fa fa-edit"></i> Edit</a> <a class="btn btn-secondary text-primary" th:href="|/deleteNews/${news.getID()}|"><i class="fa fa-delete"></i> Delete</a></td></tr>
+         </table>
+     </div>
+  </div>
+</div>
+
+<div th:if="${Keyword == null}" class="row">
+    <!-- Pagination -->
+    <div class="col-lg-12">
+        <ul class="pagination justify-content-center ">
+            <li class="page-item">
+                <a class="page-link " th:if="${PreviousPage} >=0" th:href="@{/news(sort=${Sort},page=${PreviousPage})}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only ">Previous</span>
+                </a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" th:href="@{/news(sort=${Sort},page=0,ascending=${Ascending})}">First</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link bg-primary text-white"th:href="@{/news(sort=${Sort},page=${Page},ascending=${Ascending})}" th:text="${Page + 1}"></a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" th:href="@{/news(sort=${Sort},page=${LastPage},ascending=${Ascending})}">Last</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" th:if="${Page} != ${LastPage}" th:href="@{/news(sort=${Sort},page=${NextPage},ascending=${Ascending})}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<!-- / Container -->
+
+<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+<script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+<script>
+    $('#sort').change(sort);
+    $('#ascending').change(sort);
+    $('#search-button').click(search);
+
+
+    function sort() {
+        console.log($('#sort').val())
+        window.location.href = '/news?sort=' + $('#sort').val() +'&ascending=' + $('#ascending').val();
+    }
+
+    function search() {
+        window.location.href = '/searchNews?keyword=' + $('#keyword-input').val() ;
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link th:href="@{/vendor/bootstrap/css/bootstrap-simplex.css}" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+          integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville" rel="stylesheet">
+
+    <style>
+        .custom-text-primary {
+            color: #056f8f !important;
+        }
+
+        .custom-badge-primary {
+            color: #fff;
+            background-color: #056f8f;
+        }
+
+        body {
+            background: #fff;
+            font-family: 'Libre Baskerville', serif, "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            font-size: 0.8125rem;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+
+        .content-form {
+            background: #fcfcfc;
+
+        }
+
+    </style>
+</head>
+<body>
+
+<div th:replace="fragments/fragments :: navigation"></div>
+<!-- Container -->
+<div class="container d-flex justify-content-center custom-text-primary h-100 mt-5 pt-5">
+
+    <!-- login -->
+    <div class="col-lg-5  content-form shadow-sm mt-5" style="border-radius: 2px;">
+        <div class="form-area my-4">
+            <form role="form" class="" th:action="@{/login}"  th:method="post">
+                <br style="clear:both">
+                <h3 style="margin-bottom: 25px; text-align: center;" class="">  Admin Login</h3>
+
+                <div class="d-flex justify-content-center">
+
+                    <div>
+
+                        <div class="form-group">
+                            <input type="text" class="form-control"  name="username"  placeholder="User Name" required>
+
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <input type="password" class="form-control"  name="password"  placeholder="Password" required>
+                            <span class="text-danger my-2" th:if="${param.error}" >Incorrect login information</span>
+                        </div>
+
+
+
+                        <button type="submit" id="submit" name="submit"
+                                class="btn custom-badge-primary mb-2">Login</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- / login -->
+</div>
+<!-- / Container -->
+
+<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+<script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Doni Abeje">
+    <title th:text="#{MoSHE-Title}">Ministry of Science and Higher Education - Ethiopia</title>
+    <!--<th:block layout:insert="~{fragments/pagetitle}"/>-->
+    <!-- Bootstrap core CSS -->
+    <!-- <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> -->
+    <link th:href="@{/vendor/bootstrap/css/bootstrap-simplex.css}" rel="stylesheet">
+    <link th:href="@{/vendor/bootstrap/css/slick-theme.css}" rel="stylesheet">
+    <link th:href="@{/vendor/bootstrap/css/slick.css}" rel="stylesheet">
+    <link th:href="@{/vendor/bootstrap/css/aos.css}" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+          integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville" rel="stylesheet">
+    <link th:href="@{/vendor/bootstrap/css/zoom.css}" rel="stylesheet">
+    <style>
+        .carousel-item {
+            height: 100vh;
+            min-height: 350px;
+            background: no-repeat center center scroll;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+        }
+        .carousel-item {
+            height: 400px;
+        }
+        .item img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            min-height: 300px;
+        }
+        .text-shadow {
+            text-shadow: 1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue;
+        }
+        body {
+            background: #FCFCFC;
+            font-family: 'Libre Baskerville', serif, "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            font-size: 0.8125rem;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+        .mapouter {
+            text-align: right;
+        }
+        .gmap_canvas {
+            overflow: hidden;
+            background: none !important;
+            height: 100%;
+            width: 100%;
+        }
+        footer a {
+            color: white;
+        }
+        .custom-bg-primary {
+            background: #056f8f !important;
+            border-color: #056f8f !important;
+        }
+        .custom-text-primary {
+            color: #056f8f !important;
+        }
+        .custom-hr-primary {
+            background: #555 !important;
+            border-color: #555 !important;
+        }
+        a {
+            color: #056f8f;
+        }
+        .custom-badge-primary {
+            color: #fff;
+            background-color: #056f8f;
+        }
+
+        .text-shadow {
+            text-shadow: 1px 1px 2px black, 0 0 10px black, 0 0 5px darkblue;
+        }
+
+        .image-responsive{
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<script type="text/javascript">
+(function(w,d){
+  w.HelpCrunch=function(){w.HelpCrunch.q.push(arguments)};w.HelpCrunch.q=[];
+  function r(){var s=document.createElement('script');s.async=1;s.type='text/javascript';s.src='https://widget.helpcrunch.com/';(d.body||d.head).appendChild(s);}
+  if(w.attachEvent){w.attachEvent('onload',r)}else{w.addEventListener('load',r,false)}
+})(window, document)
+</script>
+
+<script type="text/javascript">
+  HelpCrunch('init', 'moshe', {
+    applicationId: 1,
+    applicationSecret: 'x73EWFF8hqWFZwVJPKY1EPnuyn3cu9cF+otwVzx6rMKRAYm/Eo4NODnriS5bVVWRspxgMyN80zp8PKYU7XssPw=='
+  });
+
+  HelpCrunch('showChatWidget'); 
+  
+  const urlParams = new URLSearchParams(window.location.search);
+  const myParam = urlParams.get('lang'); 
+
+  if(myParam == 'am'){
+
+    HelpCrunch('setPhraseList', 'am');
+  }
+  console.log(navigator.language.slice(0,2))
+</script>
+<body>
+<div th:replace="fragments/fragments :: navigation"></div>
+<header class="mt-5">
+    <div id="carouselExampleIndicators" class="carousel slide " data-ride="carousel">
+        <ol class="carousel-indicators" >
+            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+        </ol>
+        <div class="carousel-inner" role="listbox">
+            <!-- Slide One - Set the background image for this slide in the line below -->
+            <div class="carousel-item" style="background-image: url('/img/45856131_1966031633703291_51515014569263104_o.jpg')">
+                <div class="carousel-caption d-none d-md-block">
+                </div>
+            </div>
+
+            <!-- Slide Two - Set the background image for this slide in the line below -->
+            <div class="carousel-item active" style="background-image: url('/img/dna-3539309_1920.jpg')">
+                <div class="carousel-caption d-none d-md-block">
+                    <span th:if="${News.size() > 0 }">
+                        <h1 class="font-weight-light text-shadow" th:text="${News.get(0).title }">Chairperson of the State Minister of Science and Higher Education, Afewerk Kassa, said the expansion of successful women experiences is expected.</h1>
+                    <a  class="btn bg-white text-dark" th:href="|/viewNews/${News.get(0).ID}|" th:text="#{Read-More}" >Learn More</a>
+                    </span>
+                </div>
+            </div>
+            <!-- Slide Three - Set the background image for this slide in the line below -->
+            <div class="carousel-item" style="background-image: url('/img/img.jpg')">
+                <div class="carousel-caption d-none d-md-block">
+                    <span th:if="${News.size() > 1 }">
+                        <h1 class="font-weight-light text-shadow" th:text="${News.get(1).title }">Chairperson of the State Minister of Science and Higher Education, Afewerk Kassa, said the expansion of successful women experiences is expected.</h1>
+                        <a  class="btn bg-white text-dark" th:href="|/viewNews/${News.get(1).ID}|" th:text="#{Read-More}" >Learn More</a>
+
+                    </span>
+                </div>
+            </div>
+            <!-- Slide Four - Set the background image for this slide in the line below -->
+            <div class="carousel-item" style="background-image: url('/img/welding-1838986_1920.jpg')">
+                <div class="carousel-caption d-none d-md-block">
+                    <span th:if="${News.size() > 2 }">
+                        <h1 class="font-weight-light text-shadow" th:text="${News.get(2).title }">Chairperson of the State Minister of Science and Higher Education, Afewerk Kassa, said the expansion of successful women experiences is expected.</h1>
+                        <a  class="btn bg-white text-dark" th:href="|/viewNews/${News.get(2).ID}|" th:text="#{Read-More}" >Learn More</a>
+
+                    </span>
+                </div>
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only" th:text="#{Previous}"></span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only" th:text="#{Next}"></span>
+        </a>
+    </div>
+</header>
+<!-- Page Content -->
+<div class="container">
+    <!-- About us -->
+    <div class="row my-3">
+        <div class="col-lg-12 text-center ">
+            <h1 class="mt-5 custom-text-primary" th:text="#{about-us-title}"> </h1>
+            <p class="blockquote text-black-50 font-italic " th:text="#{about-us-description}"></p>
+        </div>
+    </div>
+    <!-- / About us -->
+    <hr class="text-black-50">
+    <!-- News and services -->
+    <div class="row my-3">
+        <!-- News -->
+        <div class="col-lg-8" id="news">
+            <h3 class="my-3 custom-text-primary"> <i class="far fa-newspaper"></i> <span th:text="#{News}"></span> </h3>
+            <div class="row">
+                <div class="col-lg-9 col-md-12 " id="news-slide">
+                    <div th:each="news : ${News} " class="card mb-3 shadow-sm">
+                        <div class="card-body ">
+                            <h5 class="card-title "><a href="news.html" class="text-dark" th:text="${news.title}"> </a>
+                            </h5>
+                            <small class="card-subtitle custom-text-primary" ><i class="far fa-calendar-alt"></i> <span th:text="${news.dateTime}"></span></small>
+                        </div>
+                        <a th:href="|/viewNews/${news.ID}|"> <img th:if="${!news.images.isEmpty()}" style="height: 350px; width: 100%; display: block;"
+                                                                  th:src="|/files/${news.images.get(0).getName()}|"
+                                                                  alt="Card image"></a>
+                        <a th:href="|/viewNews/${news.ID}|"> <img th:if="${news.images.isEmpty()}" style="height: 350px; width: 100%; display: block;"
+                                                                  src="/img/logo-land.jpg"
+                                                                  alt="Card image"></a>
+                        <div class="card-body">
+                            <p class="card-text text-justify text-dark" th:text="${T(com.doniabeje.moshewebsite.configuration.Utils).minify(news.description, 300)}">
+                                During the visit, her Excellency Prof. Hirut W/Mariam, Minster of Science and Higher
+                                Education said
+                                Business is not as usual in Ethiopia. Briefing the strategic goals of the Ministry,
+                                Prof. Hirut
+                                W/Mariam noted the importance of international cooperation in order to fill the gaps
+                                observed in
+                                promoting quality ...
+                            </p>
+                        </div>
+                        <div class="card-footer bg-white ">
+                            <a th:href="|/viewNews/${news.ID}|" class="btn  float-left border-info my-2" th:text="#{Read-More}">Read More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-9">
+                    <button type="button" class="btn btn-secondary custom-text-primary" id="prev"><i
+                            class="fas fa-chevron-circle-left text"></i>
+                        <span th:text="#{Previous}"></span> </button>
+                    <button type="button" class="btn btn-secondary custom-text-primary" id="next"><span th:text="#{Next}"></span> <i
+                            class="fas fa-chevron-circle-right text"></i></button>
+                </div>
+            </div>
+        </div>
+        <!-- / News -->
+        <!-- services -->
+        <div class="col-lg-4 col-md-12" id="services" >
+            <h3 class="my-3 custom-text-primary"><i class="fa fa-cogs"></i> <span th:text="#{nav.Services}" >Services</span></h3>
+            <div class="row">
+                <!-- service 1 -->
+                <div class="col-lg-12" th:each="service : ${Services}">
+                    <div class="card text-white border-0 custom-bg-primary mb-3" >
+                        <div class="card-header" ><a th:href="${service.link}" class="text-white" th:text="${service.title}"> Applicant Allocation System</a></div>
+                        <div class="card-body shadow-sm text-dark bg-white text-justify">
+                            <p class="card-text"  th:text="${service.description}">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- / service 1 -->
+                <div class="col-lg-12">
+                    <a href="/visitor/services" class="btn btn-sm btn-outline-info" th:text="#{viewallservices}">View all Services</a>
+                </div>
+
+            </div>
+        </div>
+        <!-- / services -->
+    </div>
+    <!--/ News and services -->
+    <hr class="text-dark">
+    <!-- Profiles -->
+    <div class="my-3" id="profiles">
+        <h3 class="custom-text-primary"><i class="far fa-admin"></i  ><span th:text="#{Administratives}"></span></h3>
+        <div class="row" >
+
+            <div class="col-lg-3 my-2" data-aos="fade-right" th:each="person : ${Persons}">
+                <div class="card h-100 shadow-sm">
+                    <a th:href="|/visitor/person/${person.getID()}|">
+                        <img class="card-img-top image-responsive" th:src="|/files/${person.image}|" alt="">
+                    </a>
+                    <div class="card-body">
+                        <p class="card-title text-center font-weight-bolder custom-text-primary" th:text="${person.name}">
+                            Hirut Woldemariam(Prof.)
+                        </p>
+                        <p class="card-text text-center text-muted" th:text="${person.job.title}">Minster
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- / Profiles -->
+    <!--<hr class="text-dark">-->
+    <!--&lt;!&ndash; Departments &ndash;&gt;-->
+    <!--<div class="my-3">-->
+        <!--<h3 class="custom-text-primary"><i class="far fa-building"></i> <span th:text="#{Departments}" ></span></h3>-->
+        <!--<div class="row">-->
+            <!--&lt;!&ndash; Department 1 &ndash;&gt;-->
+            <!--<div class="col-lg-4 my-2">-->
+                <!--<div class="card  h-100 border-info">-->
+                    <!--<div class="card-body">-->
+                        <!--<h4 class="card-title custom-text-primary"><a href="#" th:text="#{Departments.title.HERQA}"> </a></h4>-->
+                        <!--<p class="card-text text-justify" th:text="#{Departments.description.HERQA}"></p>-->
+                        <!--<a href="https://www.herqa.edu.et/" class="card-link"><i class="fa fa-link custom-text-primary"></i> <span th:text="#{Visit-website}"></span></a>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--&lt;!&ndash; / Department 1 &ndash;&gt;-->
+            <!--&lt;!&ndash; Department 2 &ndash;&gt;-->
+            <!--<div class="col-lg-4  my-2">-->
+                <!--<div class="card  h-100 border-info">-->
+                    <!--<div class="card-body">-->
+                        <!--<h4 class="card-title custom-text-primary"><a href="#"> <span th:text="#{Departments.title.HESC}"></span></a></h4>-->
+                        <!--<p class="card-text text-justify" th:text="#{Departments.description.HESC}"></p>-->
+                        <!--<a href="#" class="card-link"><i class="fa fa-link custom-text-primary"></i> <span th:text="#{Visit-website}"></span>-->
+                        <!--</a>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--&lt;!&ndash; / Department 2 &ndash;&gt;-->
+            <!--&lt;!&ndash; Department 3 &ndash;&gt;-->
+            <!--<div class="col-lg-4  my-2">-->
+                <!--<div class="card  h-100 border-info">-->
+                    <!--<div class="card-body">-->
+                        <!--<h4 class="card-title custom-text-primary"><a href="#" th:text="#{Departments.title.TVET}"> </a></h4>-->
+                        <!--<p class="card-text text-justify" th:text="#{Departments.description.TVET}"></p>-->
+                        <!--<a href="#" class="card-link"><i class="fa fa-link custom-text-primary"></i> <span th:text="#{Visit-website}"></span></a>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--&lt;!&ndash; / Department 3 &ndash;&gt;-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--&lt;!&ndash; / Departments &ndash;&gt;-->
+
+    <hr class="text-dark">
+    <!-- Find Us -->
+    <div class="my-3 mb-5">
+        <h3 class="my-3 custom-text-primary"><i class="fa fa-map-marker-alt"></i> <span th:text="#{Find-Us}"></span></h3>
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="">
+                    <div class="mapouter border">
+                        <div class="gmap_canvas"><iframe style="height: 300px; width: 100%; display: block;"
+                                                         id="gmap_canvas"
+
+                                                         th:src="${GeneralInformation.location}"
+
+                                                         frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div>
+                    <div class="card">
+                        <img data-action="zoom" class="card-img-top"
+                             style="height: 300px; width: 100%; display: block;" th:src="|/files/${GeneralInformation.officeImage}|" alt="">
+                        <div class="card-body custom-bg-primary ">
+                            <p class="card-text text-white text-center" th:text="#{office-location}">Ring Road, Addis Ababa Ethiopia </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- / Find us -->
+</div>
+</div>
+<!--/ Newsletter-->
+</div>
+<!-- / Container -->
+<div th:replace="fragments/fragments :: footer"></div>
+<!-- Bootstrap core JavaScript -->
+<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+<script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/vendor/bootstrap/js/slick.js}"></script>
+<script th:src="@{/vendor/bootstrap/js/aos.js}"></script>
+<script th:src="@{/vendor/bootstrap/js/zoom.js}"></script>
+<script th:src="@{/vendor/bootstrap/js/transition.js}"></script>
+<script>
+    $('#news-slide').slick({
+        infinite: true,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        prevArrow: $('#prev'),
+        nextArrow: $('#next'),
+        autoplay: true,
+        autoplaySpeed: 3000,
+        speed: 500,
+        fade: true,
+        cssEase: 'linear'
+    });
+
+
+</script>
+<script>
+    AOS.init({
+        easing: 'ease-in-out-sine'
+    });
+</script>
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>
+</body>
+</html>

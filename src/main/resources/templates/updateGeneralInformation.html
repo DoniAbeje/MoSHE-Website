@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>General Information</title>
+    <link th:href="@{/vendor/bootstrap/css/bootstrap-simplex.css}" rel="stylesheet">
+    <link th:href="@{/vendor/bootstrap/css/quill.snow.css}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+          integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville" rel="stylesheet">
+
+    <style>
+        .custom-text-primary {
+            color: #056f8f !important;
+        }
+
+        .custom-badge-primary {
+            color: #fff;
+            background-color: #056f8f;
+        }
+
+        body {
+            background: #fff;
+            font-family: 'Libre Baskerville', serif, "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            font-size: 0.8125rem;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+
+        .content-form {
+            background: #fcfcfc;
+
+        }
+
+    </style>
+</head>
+<body>
+
+<div th:replace="fragments/fragments :: admin-navigation"></div>
+
+<!-- Container -->
+<div class="container">
+
+    <!--row-->
+    <div class="row pb-5 mb-5">
+        <div class="col-lg-12">
+            <h3 style="margin-bottom: 25px; text-align: center;" class="font-weight-bolder">General Information</h3>
+        </div>
+        <div th:if="${param.success}" class="alert alert-dismissible alert-success col-lg-6">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Success!</strong> General information updated
+        </div>
+        <div class="col-lg-8">
+            <div id="toolbar-container">
+                  <span class="ql-formats">
+                  <select class="ql-font"></select>
+                  <select class="ql-size"></select>
+                  </span>
+                <span class="ql-formats">
+                  <button class="ql-bold"></button>
+                  <button class="ql-italic"></button>
+                  <button class="ql-underline"></button>
+                  <button class="ql-strike"></button>
+                  </span>
+                <span class="ql-formats">
+                  <select class="ql-color"></select>
+                  <select class="ql-background"></select>
+                  </span>
+                <span class="ql-formats">
+                  <button class="ql-script" value="sub"></button>
+                  <button class="ql-script" value="super"></button>
+                  </span>
+                <span class="ql-formats">
+                  <button class="ql-header" value="1"></button>
+                  <button class="ql-header" value="2"></button>
+                  <button class="ql-blockquote"></button>
+                  <button class="ql-code-block"></button>
+                  </span>
+                <span class="ql-formats">
+                  <button class="ql-list" value="ordered"></button>
+                  <button class="ql-list" value="bullet"></button>
+                  <button class="ql-indent" value="-1"></button>
+                  <button class="ql-indent" value="+1"></button>
+                  </span>
+                <span class="ql-formats">
+                  <button class="ql-direction" value="rtl"></button>
+                  <select class="ql-align"></select>
+                  </span>
+                <span class="ql-formats">
+                  <button class="ql-link"></button>
+                  <button class="ql-formula"></button>
+                  </span>
+                <span class="ql-formats">
+                  <button class="ql-clean"></button>
+                  </span>
+            </div>
+            <div id="editor-container" th:utext="${GeneralInformation.getEnglishDescription()}"></div>
+
+        </div>
+    </div>
+    <!--/row-->
+
+    <!--row-->
+    <div class="row pb-5">
+        <div class="col-lg-12">
+        </div>
+        <div class="col-lg-8">
+            <div id="toolbar-container-2">
+                  <span class="ql-formats">
+                  <select class="ql-font"></select>
+                  <select class="ql-size"></select>
+                  </span>
+                <span class="ql-formats">
+                  <button class="ql-bold"></button>
+                  <button class="ql-italic"></button>
+                  <button class="ql-underline"></button>
+                  <button class="ql-strike"></button>
+                  </span>
+                <span class="ql-formats">
+                  <select class="ql-color"></select>
+                  <select class="ql-background"></select>
+                  </span>
+                <span class="ql-formats">
+                  <button class="ql-script" value="sub"></button>
+                  <button class="ql-script" value="super"></button>
+                  </span>
+                <span class="ql-formats">
+                  <button class="ql-header" value="1"></button>
+                  <button class="ql-header" value="2"></button>
+                  <button class="ql-blockquote"></button>
+                  <button class="ql-code-block"></button>
+                  </span>
+                <span class="ql-formats">
+                  <button class="ql-list" value="ordered"></button>
+                  <button class="ql-list" value="bullet"></button>
+                  <button class="ql-indent" value="-1"></button>
+                  <button class="ql-indent" value="+1"></button>
+                  </span>
+                <span class="ql-formats">
+                  <button class="ql-direction" value="rtl"></button>
+                  <select class="ql-align"></select>
+                  </span>
+                <span class="ql-formats">
+                  <button class="ql-link"></button>
+                  <button class="ql-formula"></button>
+                  </span>
+                <span class="ql-formats">
+                  <button class="ql-clean"></button>
+                  </span>
+            </div>
+            <div id="editor-container-2" th:utext="${GeneralInformation.getAmharicDescription()}"></div>
+        </div>
+    </div>
+    <!--/row-->
+
+    <!-- Add Tender -->
+    <div class="col-lg-6  content-form shadow mt-5">
+        <div class="form-area ">
+            <form role="form" th:action="@{/updateGeneralInformation}" onsubmit="prepareForm()" enctype="multipart/form-data" th:object="${GeneralInformation}" th:method="post">
+                <br style="clear:both">
+
+                <div class="form-group">
+                    <input type="text" class="form-control"  name="id" th:field = "*{ID}"  hidden placeholder="Title" required>
+                    <input type="text" class="form-control"   th:field = "*{officeImage}"  hidden >
+                    <input type="text" class="form-control" name="description" id="englishDesc"    hidden >
+                    <input type="text" class="form-control"   name="descriptionAM" id="amharicDesc" hidden >
+                </div>
+
+
+
+                <div class="form-group">
+                    <label >Location</label>
+                    <input type="text" class="form-control-file"   name="location" th:value="${GeneralInformation.location}" aria-describedby="fileHelp">
+
+
+                </div>
+
+                <div class="form-group">
+                    <label >Office Image</label>
+                    <input type="file" class="form-control-file" id="file"  name="file" aria-describedby="fileHelp">
+
+
+                </div>
+
+                <div  class="fom-group">
+                    <img  class="m-2" th:src="|/files/*{officeImage}|" width="200" height="200">
+                </div>
+
+
+                <button type="submit" id="submit" name="submit"
+                        class="btn custom-badge-primary pull-right my-2">Update General Information</button>
+
+            </form>
+        </div>
+    </div>
+    <!-- / Add Tender -->
+</div>
+<!-- / Container -->
+<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+<script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js"></script>
+<script th:src="@{/vendor/bootstrap/js/quill.min.js}"></script>
+<script>
+    var quill = new Quill('#editor-container', {
+        modules: {
+            formula: true,
+            syntax: true,
+            toolbar: '#toolbar-container'
+        },
+        placeholder: 'English',
+        theme: 'snow'
+    });
+
+    var quill2 = new Quill('#editor-container-2', {
+        modules: {
+            formula: true,
+            syntax: true,
+            toolbar: '#toolbar-container-2'
+        },
+        placeholder: 'Amharic',
+        theme: 'snow'
+    });
+
+    function prepareForm(){
+
+        $('#englishDesc').val(quill.root.innerHTML.toString());
+        $('#amharicDesc').val(quill2.root.innerHTML.toString());
+
+        return true;
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,390 @@
+<!-- Navigation -->
+<nav  xmlns:th="http://www.w3.org/1999/xhtml" th:fragment="navigation"
+     class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm border-0"
+>
+    <style>
+        .dropdown:hover .dropdown-menu {
+            transition: .7 all;
+            display: block;
+            margin-top: 0
+            
+        }
+    </style>
+    <div class="container-fluid">
+        <a class="navbar-brand py-0 pl-3" href="/"><img style="height: 60px; width: 60px"
+                                                            th:src="@{/img/logo-resized.png}"><span th:text="#{nav.Title}">s</span></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse pr-3" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link  text-dark" href="/"><span th:text="#{nav.Home}"></span>
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" href="/visitor/newsList" th:text="#{nav.News}">News</a>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link  dropdown-toggle text-dark" href="/visitor/services" th:text="#{nav.Services}"
+                       id="navbarDropdown" role="button"  aria-haspopup="true"
+                       aria-expanded="false" >
+
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item py-1 text-dark" th:each="service : ${NavServices}"  th:href="${service.link}" ><h7 th:text="${service.title}"></h7></a>
+
+                    </div>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link  dropdown-toggle text-dark"  th:text="#{Administratives}"
+                       id="navbarDropdown" role="button"  aria-haspopup="true"
+                       aria-expanded="false" >
+
+                    </a>
+                    <div class="dropdown-menu " aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item py-1 " th:each="person : ${NavAdministratives}"  th:href="|/visitor/person/${person.getID()}|" ><h7 th:text="${person.name}"></h7></a>
+
+                    </div>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link text-dark" href="/visitor/tenders" th:text="#{nav.Tenders}">Tenders</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" href="/visitor/vacancies" th:text="#{nav.Vacancies}">Vacancies</a>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link  dropdown-toggle text-dark" href="/visitor/documents" th:text="#{nav.Documents}"
+                       id="navbarDropdown" role="button"  aria-haspopup="true"
+                       aria-expanded="false" >
+
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item py-1 " th:each="docType : ${NavDocumentTypes}"  th:href="|/visitor/documents/${docType.ID}| "><h7 th:text="${docType.title}"></h7></a>
+
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" href="/visitor/aboutUs" th:text="#{nav.aboutus}"></a>
+                </li>
+                <!--<li class="nav-item dropdown">-->
+                    <!--<a class="nav-link custom-text-primary dropdown-toggle font-weight-bold" href="#"-->
+                       <!--id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"-->
+                       <!--aria-expanded="false">-->
+                        <!--Documents-->
+                    <!--</a>-->
+                    <!--<div class="dropdown-menu" aria-labelledby="navbarDropdown">-->
+                        <!--<a class="dropdown-item py-2" href="documens.html"><span>Guidelines</span> <span-->
+                                <!--class="badge custom-badge-primary float-right">2</span></a>-->
+                        <!--<a class="dropdown-item py-2" href="documens.html"><span>Manuals</span><span-->
+                                <!--class="badge custom-badge-primary float-right">5</span></a>-->
+                        <!--<a class="dropdown-item py-2" href="documens.html"><span>Policy</span><span-->
+                                <!--class="badge custom-badge-primary float-right">12</span></a>-->
+                        <!--<a class="dropdown-item py-2" href="documens.html"><span>Standards</span><span-->
+                                <!--class="badge custom-badge-primary float-right">4</span></a>-->
+                        <!--<div class="dropdown-divider"></div>-->
+                        <!--<a class="dropdown-item py-2" href="documens.html"><span>Other</span><span-->
+                                <!--class="badge custom-badge-primary float-right">2</span></a>-->
+                        <!--<a class="dropdown-item py-2" href="documens.html"><span>All</span><span-->
+                                <!--class="badge custom-badge-primary float-right">25</span></a>-->
+                    <!--</div>-->
+                <!--</li>-->
+                <li class="nav-item dropdown">
+                    <a class="nav-link  dropdown-toggle" href="#"
+                       id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                       aria-expanded="false" >
+                        <span th:if="__${#locale}__== 'am' ">| አማ</span>
+                        <span th:if="__${#locale}__!= 'am' ">| EN</span>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item py-2 "  th:href="@{${#httpServletRequest.requestURI}(lang=us)}" >English</a>
+                        <a class="dropdown-item py-2"  th:href="@{${#httpServletRequest.requestURI}(lang=am)}">አማርኛ</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!--/ Navigation-->
+
+
+<!-- Footer -->
+<footer th:fragment="footer"  xmlns:th="http://www.w3.org/1999/xhtml" class="page-footer font-small indigo custom-bg-primary text-white mt-5">
+
+    <!-- Footer Links -->
+    <div class="container text-center text-md-left py-3">
+
+        <!-- Grid row -->
+        <div class="row">
+
+
+
+            <!-- Grid column -->
+            <div class="col-md-3 mx-auto">
+
+                <!-- Links -->
+                <h5 class="font-weight-bold text-uppercase mt-3 mb-4 text-left"><i class="fa fa-cogs"></i> <span th:text="#{nav.Services}"></span>
+                </h5>
+
+                <ul class="text-left list-unstyled">
+                    <li class="my-2" th:each="service : ${NavServices}">
+                        <a th:href="${service.link}" class="text-white" th:text="${service.title}">The Higher Education Relevance and Quality Agency (HERQA)</a>
+                    </li>
+
+                </ul>
+
+            </div>
+            <!-- Grid column -->
+
+            <hr class="clearfix w-100 d-md-none">
+
+            <!-- Grid column -->
+            <div class="col-md-3 mx-auto">
+
+                <!-- Links -->
+                <h5 class="font-weight-bold text-uppercase mt-3 mb-4 px-0 text-left"><i class="far fa-building"></i>
+                    <span th:text="#{Departments}"></span></h5>
+
+                <ul class="text-left list-unstyled">
+                    <li class="my-2">
+                        <span th:text="#{Departments.title.HERQA}">The Higher Education Relevance and Quality Agency (HERQA)</span>
+                    </li>
+                    <li class="my-2">
+                        <span th:text="#{Departments.title.HESC}">The Higher Education Strategy Center (HESC)</span>
+                    </li>
+                    <li class="my-2">
+                        <span th:text="#{Departments.title.TVET}">The TVET Agency and the TVET Institute</span>
+                    </li>
+
+                </ul>
+
+            </div>
+            <!-- Grid column -->
+
+
+
+            <hr class="clearfix w-100 d-md-none">
+
+            <!-- Grid column -->
+            <div class="col-md-3 mx-auto">
+
+                <!-- Links -->
+                <h5 class="font-weight-bold text-uppercase mt-3 mb-4 text-left"><i class="fas fa-info"> </i> <span th:text="#{social-network}"></span>
+                </h5>
+
+                <ul class="text-left list-unstyled">
+                    <li class="my-2">
+                        <a href="https://www.facebook.com/SHE.Ethio/"><i class="fab fa-facebook-square"> </i> <span th:text="#{Facebook}"></span> </a>
+                    </li>
+                    <li class="my-2">
+                        <a href="https://twitter.com/she_ethiopia"><i class="fab fa-twitter-square"> </i>  <span th:text="#{Twitter}"></span></a>
+                    </li>
+                    <!--<li class="my-2">-->
+                        <!--<a href="#!"><i class="fab fa-instagram"> </i>  <span th:text="#{Instagram}"></span></a>-->
+                    <!--</li>-->
+                    <!--<li class="my-2">-->
+                        <!--<a href="#!"><i class="fab fa-linkedin"> </i>  <span th:text="#{Linkedin}"></span></a>-->
+                    <!--</li>-->
+                </ul>
+
+            </div>
+            <!-- Grid column -->
+
+            <hr class="clearfix w-100 d-md-none">
+
+            <!-- Grid column -->
+            <div class="col-md-3 mx-auto">
+
+                <!-- Links -->
+                <h5 class="font-weight-bold text-uppercase mt-3 mb-4 text-left"><i class="fas fa-phone-square"> </i>
+                    <span th:text="#{Contact-Us}"></span></h5>
+
+                <ul class="text-left list-unstyled">
+                    <li class="my-2">
+                        <span ><i class="fas fa-phone-square"> </i> +251-111-55-31-33
+                        </span>
+                    </li>
+
+                    <li class="my-2">
+                        <span ><i class="fas fa-at"> </i> 	moshe@ethernet.edu.et</span>
+                    </li>
+                </ul>
+
+            </div>
+            <!-- Grid column -->
+
+        </div>
+        <!-- Grid row -->
+
+    </div>
+    <!-- Footer Links -->
+
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3 bg-dark text-white" th:text="#{copyright}">© 2019 Copyright: MoSHE
+    </div>
+    <!-- Copyright -->
+
+</footer>
+<!-- Footer -->
+
+
+
+<!-- Navigation -->
+<nav th:fragment="admin-navigation" class="navbar navbar-expand-lg navbar-light bg-white border-0 "
+     xmlns:th="http://www.w3.org/1999/xhtml">
+    <div class="container">
+        <a class="navbar-brand py-0" href="/"><img style="height: 55px; width: 55px"
+                                                            th:src="@{/img/logo-2.jpg}"> MoSHE - Admin</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link custom-text-primary font-weight-bold active" href="/vacancies">Vacancies
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link custom-text-primary font-weight-bold" href="/tenders">Tenders</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link custom-text-primary font-weight-bold" href="/news">News</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link custom-text-primary font-weight-bold" href="/documents">Documents</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link custom-text-primary font-weight-bold" href="/services">Services</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link custom-text-primary font-weight-bold" href="/persons">Administration</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link custom-text-primary font-weight-bold" href="/updateGeneralInformation">General Info</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link custom-text-primary font-weight-bold" href="/suggestions">Suggestions</a>
+                </li>
+
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link custom-text-primary dropdown-toggle font-weight-bold" href="#"
+                       id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                       aria-expanded="false">
+                        New
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item py-2" href="/addVacancy"><span>Vacancy</span> </a>
+                        <a class="dropdown-item py-2" href="/addTender"><span>Tender</span></a>
+                        <a class="dropdown-item py-2" href="/addNews"><span>News</span></a>
+                        <a class="dropdown-item py-2" href="/addDocument"><span>Document</span></a>
+                        <a class="dropdown-item py-2" href="/addService"><span>Service</span></a>
+                        <a class="dropdown-item py-2" href="/addPerson"><span>Administration</span></a>
+                        <a class="dropdown-item py-2" href="/register"><span>Admin</span></a>
+                    </div>
+
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link custom-text-primary font-weight-bold" href="/logout">Logout</a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+<!--/ Navigation-->
+
+
+<!--row-->
+<div class="row" th:fragment="quill-toolbar-editor-row"  xmlns:th="http://www.w3.org/1999/xhtml">
+    <div class="col-lg-7">
+        <div id="toolbar-container">
+                  <span class="ql-formats">
+                  <select class="ql-font"></select>
+                  <select class="ql-size"></select>
+                  </span>
+            <span class="ql-formats">
+                  <button class="ql-bold"></button>
+                  <button class="ql-italic"></button>
+                  <button class="ql-underline"></button>
+                  <button class="ql-strike"></button>
+                  </span>
+            <span class="ql-formats">
+                  <select class="ql-color"></select>
+                  <select class="ql-background"></select>
+                  </span>
+            <span class="ql-formats">
+                  <button class="ql-script" value="sub"></button>
+                  <button class="ql-script" value="super"></button>
+                  </span>
+            <span class="ql-formats">
+                  <button class="ql-header" value="1"></button>
+                  <button class="ql-header" value="2"></button>
+                  <button class="ql-blockquote"></button>
+                  <button class="ql-code-block"></button>
+                  </span>
+            <span class="ql-formats">
+                  <button class="ql-list" value="ordered"></button>
+                  <button class="ql-list" value="bullet"></button>
+                  <button class="ql-indent" value="-1"></button>
+                  <button class="ql-indent" value="+1"></button>
+                  </span>
+            <span class="ql-formats">
+                  <button class="ql-direction" value="rtl"></button>
+                  <select class="ql-align"></select>
+                  </span>
+            <span class="ql-formats">
+                  <button class="ql-link"></button>
+                  <button class="ql-formula"></button>
+                  </span>
+            <span class="ql-formats">
+                  <button class="ql-clean"></button>
+                  </span>
+        </div>
+        <div id="editor-container"></div>
+    </div>
+</div>
+<!--/row-->
+
+
+<!--navigation-2-->
+<nav class="navbar navbar-expand-lg navbar-light bg-light" th:fragment="navigation-second"  xmlns:th="http://www.w3.org/1999/xhtml">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarColor03">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Features</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Pricing</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">About</a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="text" placeholder="Search">
+            <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </div>
+</nav>
+<!--navigation-2-->

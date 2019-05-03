@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Doni Abeje">
+    <title th:text="#{nav.Documents}">Vacancies</title>
+    <link th:href="@{/vendor/bootstrap/css/bootstrap-simplex.css}" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+          integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville" rel="stylesheet">
+    <style>
+        .carousel-item {
+            height: 100vh;
+            min-height: 350px;
+            background: no-repeat center center scroll;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+        }
+        .carousel-item {
+            height: 400px;
+        }
+        .item img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            min-height: 300px;
+        }
+        .text-shadow {
+            text-shadow: 1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue;
+        }
+        body {
+            background: #FCFCFC;
+            font-family: 'Libre Baskerville', serif, "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            font-size: 0.8125rem;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+        .mapouter {
+            text-align: right;
+        }
+        .gmap_canvas {
+            overflow: hidden;
+            background: none !important;
+            height: 100%;
+            width: 100%;
+        }
+        footer a {
+            color: white;
+        }
+        .custom-bg-primary {
+            background: #056f8f !important;
+            border-color: #056f8f !important;
+        }
+        .custom-text-primary {
+            color: #056f8f !important;
+        }
+        .custom-hr-primary {
+            background: #056f8f !important;
+            border-color: #056f8f !important;
+        }
+        a {
+            color: #056f8f;
+        }
+        .custom-badge-primary {
+            color: #fff;
+            background-color: #056f8f;
+        }
+    </style>
+</head>
+<body>
+<div th:replace="fragments/fragments :: navigation"></div>
+<!-- Container -->
+<div class="container custom-text-primary my-4 min-vh-100 py-5">
+    <div class="row mt-5">
+        <div class="col-lg-3 ">
+            <div class="form-group ">
+                <input th:type="text" hidden="hidden" name="sort" th:value="${Sort}">
+                <input type="email" class="form-control" id="keyword-input" name="keyword" th:placeholder="#{search}" th:attrappend="value=${Keyword != null}?${Keyword}"
+                       required>
+            </div>
+        </div>
+        <div class="form-group col-lg-2 ">
+            <a th:if="${Keyword != null}" class="btn btn-secondary text-primary" href="/visitor/documents">X</a>
+            <button type="button" id="search-button" name="submit"
+                    class="btn custom-badge-primary" th:text="#{search}">Go!</button>
+        </div>
+        <div th:if="${Keyword == null}" class="col-lg-3 ">
+            <div class="form-group ">
+                <select id="sort"  class="form-control">
+                    <option class="sort-list" th:attrappend="selected=${Sort == 'dateTime'}?selected"  value="dateTime" th:text="#{sort-by-date}">Sort by Date </option>
+                    <option class="sort-list" th:attrappend="selected=${Sort == 'title'}?selected" value="title" th:text="#{sort-by-title}">Sort by title </option>
+                </select>
+            </div>
+        </div>
+        <div th:if="${Keyword == null}" class="col-lg-3">
+            <div class="form-group ">
+                <select id="ascending"  class="form-control">
+                    <option class="sort-list" th:attrappend="selected=${Ascending == 1}?selected"  value="1" th:text="#{ascending}">Ascending </option>
+                    <option class="sort-list" th:attrappend="selected=${Ascending != 1}?selected" value="0" th:text="#{descending}">Descending </option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="container" >
+        <!-- Page Features -->
+        <!--<div th:each="document : ${Documents}" class="row my-4">-->
+            <!--<div class="col-md-7 ">-->
+                <!--<h3 class="custom-text-primary" ><i class="fa fa-file-alt"></i> <span th:text="${document.title}"></span> </h3>-->
+                <!--<h6 class="card-subtitle text-muted my-3" ><i class="far fa-calendar-alt"> Published</i> <span th:text="${document.dateTime}"></span></h6>-->
+                <!--<span class="badge badge-dark" th:text="${document.documentType.title}">Dark</span>-->
+                <!--<p th:text="${T(com.doniabeje.moshewebsite.configuration.Utils).minify(document.description, 300)}">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium veniam exercitationem expedita laborum at voluptate. Labore, voluptates totam at aut nemo deserunt rem magni pariatur quos perspiciatis atque eveniet unde.</p>-->
+                <!--<a class="btn border-info btn-sm" th:href="|/files/${document.name}|" th:text="#{Download}">Read More</a>-->
+            <!--</div>-->
+        <!--</div>-->
+
+
+        <div class="row">
+            <!-- service 1 -->
+            <div class="col-lg-12">
+                <div class="d-flex justify-content-center">
+                   <div>
+                       <h1 class="text-center custom-text-primary mt-3"><i class="fa fa-book"></i></h1>
+                       <h2 class="mb-3 custom-text-primary text-center"> <span th:text="#{nav.Documents}" >Services</span></h2>
+                   </div>
+                </div>
+            </div>
+            <div class="col-lg-6 my-2" th:each="document : ${Documents}">
+
+                <div class="card  border-0 bg-light text-dark my-3 h-100" >
+                    <div class="card-header font-weight-bold" ><a th:href="|/files/${document.name}|" class="" th:text="${document.title}"> Applicant Allocation System</a></div>
+                    <div class="card-body shadow-sm text-dark bg-white text-justify">
+
+                        <p class="card-text"  th:text="${document.description}">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+
+                    </div>
+                    <div class="align-bottom shadow-sm px-4 py-2 bg-white">
+                        <p class="text-muted" > <span class="badge badge-pill badge-primary" th:text="${document.documentType.title}">Primary</span> &nbsp;&nbsp;&nbsp;<i class="far fa-calendar-alt" th:text="#{posted}"> Published</i> <small th:text="${document.dateTime}"></small></p>
+                        <a th:href="|/files/${document.name}|" class="btn btn-outline-info"> <span th:text="#{Download}"></span></a>
+
+                    </div>
+                </div>
+
+
+            </div>
+            <!-- / service 1 -->
+
+        </div>
+
+
+
+        <!-- /.row -->
+        <div th:if="${#lists.isEmpty(Documents)}" class="mt-3">
+            <h1 th:text="#{nodoucmentfound}">No Document Found</h1>
+        </div>
+    </div>
+</div>
+<div th:if="${Keyword == null}" class="row">
+    <!-- Pagination -->
+    <div class="col-lg-12" th:if="${DocumentType == null}">
+        <ul class="pagination justify-content-center ">
+            <li class="page-item">
+                <a class="page-link " th:if="${PreviousPage} >=0" th:href="@{/visitor/documents(sort=${Sort},page=${PreviousPage})}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only " th:text="#{Previous}">Previous</span>
+                </a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" th:href="@{/visitor/documents(sort=${Sort},page=0,ascending=${Ascending})}" th:text="#{First}">First</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link bg-primary text-white"th:href="@{/visitor/documents(sort=${Sort},page=${Page},ascending=${Ascending})}" th:text="${Page + 1}"></a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" th:href="@{/visitor/documents(sort=${Sort},page=${LastPage},ascending=${Ascending})}" th:text="#{Last}">Last</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" th:if="${Page} != ${LastPage}" th:href="@{/visitor/documents(sort=${Sort},page=${NextPage},ascending=${Ascending})}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only" th:text="#{Next}">Next</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <!--/Pagination-->
+
+
+</div>
+<!-- / Container -->
+<div th:replace="fragments/fragments :: footer"></div>
+<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+<script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<script>
+    $('#sort').change(sort);
+    $('#ascending').change(sort);
+    $('#search-button').click(search);
+
+
+    function sort() {
+        console.log($('#sort').val())
+        window.location.href = '/visitor/documents?sort=' + $('#sort').val() +'&ascending=' + $('#ascending').val();
+    }
+
+    function search() {
+        window.location.href = '/visitor/searchDocuments?keyword=' + $('#keyword-input').val() ;
+    }
+</script>
+</body>
+</html>

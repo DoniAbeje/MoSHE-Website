@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Document</title>
+    <link th:href="@{/vendor/bootstrap/css/bootstrap-simplex.css}" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+          integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville" rel="stylesheet">
+
+    <style>
+        .custom-text-primary {
+            color: #056f8f !important;
+        }
+
+        .custom-badge-primary {
+            color: #fff;
+            background-color: #056f8f;
+        }
+
+        body {
+            background: #fff;
+            font-family: 'Libre Baskerville', serif, "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            font-size: 0.8125rem;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+
+        .content-form {
+            background: #fcfcfc;
+
+        }
+
+    </style>
+</head>
+<body>
+
+<div th:replace="fragments/fragments :: admin-navigation"></div>
+<!-- Container -->
+<div class="container d-flex justify-content-center custom-text-primary">
+
+    <!-- Add Document -->
+    <div class="col-lg-6  content-form shadow mt-5">
+        <div class="form-area ">
+            <form role="form" th:action="@{/addDocument}" enctype="multipart/form-data" th:object="${NewDocument}" th:method="post">
+                <br style="clear:both">
+                <h3 style="margin-bottom: 25px; text-align: center;" class="font-weight-bolder">Add Document</h3>
+                <div class="form-group">
+                    <input type="text" class="form-control"  name="username" th:field = "*{title}" placeholder="Title" required>
+                    <span class="text-danger my-2" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputFile">File</label>
+                    <input type="file" class="form-control-file" id="exampleInputFile" name="file" aria-describedby="fileHelp">
+
+                </div>
+
+                <div class="form-group">
+                    <fieldset class="form-group">
+
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input th:attrappend="selected=${language == 'AMHARIC'}?selected" type="radio" class="form-check-input" name="language" th:field = "*{language}"
+                                       id="optionsRadios1" value="AMHARIC" >
+                                አማርኛ
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input th:attrappend="selected=${language == 'ENGLISH'}?selected" type="radio" class="form-check-input" name="language" th:field = "*{language}"
+                                       id="optionsRadios2" value="ENGLISH">
+                                English
+                            </label>
+                        </div>
+                    </fieldset>
+                    <span class="text-danger my-2" th:if="${#fields.hasErrors('language')}" th:errors="*{language}"></span>
+                </div>
+
+                <div class="form-group">
+                    <LABEL>Document Type</LABEL>
+                    <select class="form-control" th:field="*{documentType}">
+                        <option th:each="docType : ${DocumentTypes}" th:value="${docType.ID}" th:text="${docType.title}"></option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                        <textarea class="form-control" type="textarea" th:field = "*{description}" id="message" placeholder="Description"
+                                  rows="7"></textarea>
+                    <span class="text-danger my-2" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
+
+                </div>
+
+                <button type="submit" id="submit" name="submit"
+                        class="btn custom-badge-primary pull-right my-2">Add Document</button>
+            </form>
+        </div>
+    </div>
+    <!-- / Add Document -->
+</div>
+<!-- / Container -->
+
+
+
+<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+<script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

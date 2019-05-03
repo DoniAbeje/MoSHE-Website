@@ -1,0 +1,33 @@
+<HTML xmlns:th="http://www.springframework.org/schema/data/jaxb">
+<head>
+    <!-- Bootstrap -->
+    <link th:href="@{/vendor/bootstrap/css/bootstrap-simplex.css}" rel="stylesheet">
+
+    <!------ Include the above in your HEAD tag ---------->
+    <style>
+        body {
+            background: #dedede;
+        }
+        .page-wrap {
+            min-height: 100vh;
+        }
+    </style>
+
+</head>
+<body>
+
+<div class="page-wrap d-flex flex-row align-items-center">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12 text-center">
+                <h1 style="font-size:72px;" class="display-1 d-block text-capitalize">Not found</h1>
+                <a href="/" class="btn mb-4 lead btn-primary">Go to Home</a>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+<script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+</body>
+</HTML>

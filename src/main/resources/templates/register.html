@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <link th:href="@{/vendor/bootstrap/css/bootstrap-simplex.css}" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+          integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville" rel="stylesheet">
+
+    <style>
+        .custom-text-primary {
+            color: #056f8f !important;
+        }
+
+        .custom-badge-primary {
+            color: #fff;
+            background-color: #056f8f;
+        }
+
+        body {
+            background: #fff;
+            font-family: 'Libre Baskerville', serif, "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            font-size: 0.8125rem;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+
+        .content-form {
+            background: #fcfcfc;
+
+        }
+
+    </style>
+</head>
+<body>
+
+<div th:replace="fragments/fragments :: admin-navigation"></div>
+<!-- Container -->
+<div class="container d-flex justify-content-center custom-text-primary h-100 mt-5">
+
+    <!-- login -->
+    <div class="col-lg-6  content-form shadow mt-5 pt-5">
+        <div class="form-area ">
+            <form role="form" class="" th:action="@{/register}" th:object="${NewUser}" th:method="post">
+                <br style="clear:both">
+                <h3 style="margin-bottom: 25px; text-align: center;" class="font-weight-bolder"> <i class="fa fa-user-circle"></i> Register</h3>
+
+                <div class="d-flex justify-content-center">
+
+                    <div>
+
+                        <div class="form-group">
+                            <input type="text" class="form-control"  name="username" th:field = "*{username}" placeholder="User Name" required>
+                            <span class="text-danger my-2" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
+                        </div>
+
+
+                        <div class="form-group">
+                            <input type="text" class="form-control"  name="fullName" th:field = "*{fullName}" placeholder="Full Name" required>
+                            <span class="text-danger" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></span>
+                        </div>
+
+
+                        <div class="form-group">
+                            <input type="password" class="form-control"  name="password" th:field = "*{password}" placeholder="Password" required>
+                            <span class="text-danger my-2" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+                        </div>
+
+
+
+                        <button type="submit" id="submit" name="submit"
+                                class="btn custom-badge-primary mb-2">Register</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- / login -->
+</div>
+<!-- / Container -->
+
+<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+<script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

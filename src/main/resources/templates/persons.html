@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Administrates</title>
+    <link th:href="@{/vendor/bootstrap/css/bootstrap-simplex.css}" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+          integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville" rel="stylesheet">
+
+    <style>
+        .custom-text-primary {
+            color: #056f8f !important;
+        }
+
+        .custom-badge-primary {
+            color: #fff;
+            background-color: #056f8f;
+        }
+
+        body {
+            background: #fff;
+            font-family: 'Libre Baskerville', serif, "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            font-size: 0.8125rem;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+
+        .content-form {
+            background: #fcfcfc;
+
+        }
+
+    </style>
+</head>
+<body>
+
+<div th:replace="fragments/fragments :: admin-navigation"></div>
+<!-- Container -->
+<div class="container custom-text-primary">
+
+
+    <div class="row">
+        <div class="col-lg-3">
+            <a class="btn btn-secondary" th:href="@{/addPerson}"><i class="fa fa-plus"></i> New Administrate</a>
+        </div>
+    </div>
+
+  <div class="row">
+     <div class="col-lg-12 mt-2">
+         <h2>Administrates</h2>
+         <table class="table table-striped table-bordered content-form shadow mt-2">
+             <tr><th>Name</th> <th>Job</th></tr>
+             <tr th:each="person : ${Persons}"><td class="" th:text="${person.name}"></td><td    width="20%" th:text="${person.job.title}"></td><td width="20%"><a class="btn btn-secondary custom-text-primary" th:href="|/editPerson/${person.getID()}|"><i class="fa fa-edit"></i> Edit</a> <a class="btn btn-secondary text-primary" th:href="|/deletePerson/${person.getID()}|"><i class="fa fa-delete"></i> Delete</a></td></tr>
+         </table>
+     </div>
+
+      <div class="col-lg-12"><hr class="custom-text-primary"></div>
+
+      <div class="col-lg-8 mt-5">
+          <div th:if="${param.constraint_error}"  class="alert alert-dismissible alert-primary">
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+              <strong>Sorry!</strong> Delete all Administrates related to the type and try deleting again.
+          </div>
+          <h4>Jobs</h4>
+          <!--<div th:each="job: ${DocumentTypes}">-->
+              <!--<form role="form" th:action="@{/editDocumentType}"  th:method="post">-->
+                  <!--<input typpe="text" hidden="hidden"  name="id" th:value="${job.ID}">-->
+                  <!--<input type="text" class="form-control" name="title" th:value="${job.title}">-->
+                  <!--<label><input th:type="radio" name="language"  th:checked="${job.language.toString() == 'AMHARIC'}"  value="AMHARIC"> አማርኛ</label>-->
+                  <!--<label><input th:type="radio" name="language" th:checked="${job.language.toString() == 'ENGLISH'}"  value="ENGLISH"> English</label>-->
+                  <!--<input type="submit" class="btn btn-sm btn-outline-info">-->
+              <!--</form>-->
+
+          <!--</div>-->
+          <table class="table table-striped table-bordered">
+              <tr th:each="job: ${Jobs}">
+                  <form role="form" th:action="@{/editJob}"  th:method="post">
+                      <input typpe="text" hidden="hidden"  name="id" th:value="${job.ID}">
+                      <td><input type="text" class="form-control" name="title" th:value="${job.title}"></td>
+                      <td>
+                          <div class="form-group">
+                        <textarea class="form-control" type="textarea" name="description"  placeholder="Description" rows="7" th:text="${job.description}">
+
+                        </textarea>
+
+
+                          </div>
+                      </td>
+                      <td><label><input th:type="radio" name="language" th:checked="${job.language.toString() == 'AMHARIC'}" value="AMHARIC"> አማርኛ</label></td>
+                      <td><label><input th:type="radio" name="language" th:checked="${job.language.toString() == 'ENGLISH'}" value="ENGLISH"> English</label></td>
+                      <td><input type="submit" class="btn btn-sm btn-outline-info" value="Update"></td>
+                      <td><a th:href="|/deleteJob/${job.getID()}|" class="btn btn-sm btn-outline-primary">Delete</a></td>
+                  </form>
+
+              </tr>
+          </table>
+          <!--<table class="table table-striped table-bordered">-->
+
+              <!--<tr><th>Title</th> </tr>-->
+              <!--<form th:method="post" action="/editDocumentType/">-->
+              <!--<tr th:each="job: ${DocumentTypes}" >-->
+                  <!--<td><input typpe="text"  name="id" th:value="${job.ID}"><input type="text" name="title" th:value="${job.title}"></td>-->
+                  <!--&lt;!&ndash;<td>&ndash;&gt;-->
+                      <!--&lt;!&ndash;<div class="form-group">&ndash;&gt;-->
+                          <!--&lt;!&ndash;<fieldset class="form-group">&ndash;&gt;-->
+
+                              <!--&lt;!&ndash;<div class="form-check">&ndash;&gt;-->
+                                  <!--&lt;!&ndash;<label class="form-check-label">&ndash;&gt;-->
+                                      <!--&lt;!&ndash;<input th:attrappend="selected=${job.language == 'AMHARIC'}?selected" type="radio" class="form-check-input" name="language"&ndash;&gt;-->
+                                              <!--&lt;!&ndash;value="AMHARIC" >&ndash;&gt;-->
+                                      <!--&lt;!&ndash;አማርኛ&ndash;&gt;-->
+                                  <!--&lt;!&ndash;</label>&ndash;&gt;-->
+                              <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                              <!--&lt;!&ndash;<div class="form-check">&ndash;&gt;-->
+                                  <!--&lt;!&ndash;<label class="form-check-label">&ndash;&gt;-->
+                                      <!--&lt;!&ndash;<input  th:attrappend="selected=${job.language == 'ENGLISH'}?selected" type="radio" class="form-check-input" name="language"  value="ENGLISH">&ndash;&gt;-->
+                                      <!--&lt;!&ndash;English&ndash;&gt;-->
+                                  <!--&lt;!&ndash;</label>&ndash;&gt;-->
+                              <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                          <!--&lt;!&ndash;</fieldset>&ndash;&gt;-->
+
+                      <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                  <!--&lt;!&ndash;</td>&ndash;&gt;-->
+
+                  <!--<td><input type="submit" class="btn btn-sm" value="update"><a th:href="|/deleteDocumentType/${job.getID()}|" lass="btn btn-secondary text-primary">Delete</a></td> </form></tr>-->
+
+          <!--</table>-->
+
+      </div>
+
+
+
+
+
+
+  </div>
+    <div class="row">
+        <div class="col-lg-7 mt-5">
+            <form role="form" th:action="@{/addJob}"   th:method="post">
+
+                <h4 style="margin-bottom: 25px; text-align: center;" class="">Add Job</h4>
+                <div class="form-group">
+                    <input type="text" class="form-control"  name="title"  placeholder="Title" required>
+
+                </div>
+                <div class="form-group">
+                    <fieldset class="form-group">
+
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="language"
+                                       id="optionsRadios1" value="AMHARIC" >
+                                አማርኛ
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input  type="radio" class="form-check-input" name="language"  checked
+                                        id="optionsRadios2" value="ENGLISH">
+                                English
+                            </label>
+                        </div>
+                    </fieldset>
+                </div>
+
+                <div class="form-group">
+                        <textarea class="form-control" type="textarea" name="description"  placeholder="Description"
+                                  rows="7"></textarea>
+
+
+                </div>
+
+
+                <button type="submit" id="submit" name="submit"
+                        class="btn custom-badge-primary pull-right my-2">Add Job</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- / Container -->
+
+<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+<script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+<script>
+    $('#sort').change(sort);
+    $('#ascending').change(sort);
+    $('#search-button').click(search);
+
+
+    function sort() {
+        console.log($('#sort').val())
+        window.location.href = '/documents?sort=' + $('#sort').val() +'&ascending=' + $('#ascending').val();
+    }
+
+    function search() {
+        window.location.href = '/searchDocuments?keyword=' + $('#keyword-input').val() ;
+    }
+</script>
+</body>
+</html>

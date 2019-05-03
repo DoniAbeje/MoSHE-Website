@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Doni Abeje">
+    <title th:text="#{nav.News}"></title>
+    <!--<th:block layout:insert="~{fragments/pagetitle}"/>-->
+    <!-- Bootstrap core CSS -->
+    <!-- <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> -->
+    <link th:href="@{/vendor/bootstrap/css/bootstrap-simplex.css}" rel="stylesheet">
+    <link th:href="@{/vendor/bootstrap/css/slick-theme.css}" rel="stylesheet">
+    <link th:href="@{/vendor/bootstrap/css/slick.css}" rel="stylesheet">
+    <link th:href="@{/vendor/bootstrap/css/aos.css}" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+          integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville" rel="stylesheet">
+    <link th:href="@{/vendor/bootstrap/css/zoom.css}" rel="stylesheet">
+    <style>
+        .carousel-item {
+            height: 100vh;
+            min-height: 350px;
+            background: no-repeat center center scroll;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+        }
+        .carousel-item {
+            height: 400px;
+        }
+        .item img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            min-height: 300px;
+        }
+        .text-shadow {
+            text-shadow: 1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue;
+        }
+        body {
+            background: #FCFCFC;
+            font-family: 'Libre Baskerville', serif, "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            font-size: 0.8125rem;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+        .mapouter {
+            text-align: right;
+        }
+        .gmap_canvas {
+            overflow: hidden;
+            background: none !important;
+            height: 100%;
+            width: 100%;
+        }
+        footer a {
+            color: white;
+        }
+        .custom-bg-primary {
+            background: #056f8f !important;
+            border-color: #056f8f !important;
+        }
+        .custom-text-primary {
+            color: #056f8f !important;
+        }
+        .custom-hr-primary {
+            background: #056f8f !important;
+            border-color: #056f8f !important;
+        }
+        a {
+            color: #056f8f;
+        }
+        .custom-badge-primary {
+            color: #fff;
+            background-color: #056f8f;
+        }
+    </style>
+</head>
+<body>
+<div th:replace="fragments/fragments :: navigation"></div>
+<!-- Page Content -->
+<div class="container py-5 my-5 ">
+        <div class="row mt-3">
+                <div class="col-lg-10">
+                    <h1 class="custom-text-primary font-weight-light" th:text="${News.title}">
+                        Honorable Minister Hirut holds talks with South African University delegates
+                    </h1>
+                </div>
+            </div>
+    <!-- News and services -->
+    <div class="row my-3">
+        <!-- News -->
+        <div class="col-lg-8" id="news">
+            <div class="row">
+                <div class="col-lg-10 col-md-12 ">
+                    <div class="card mb-3 shadow-sm">
+                        <div class="card-body">
+                            
+                            <small class="card-subtitle text-muted" ><i class="far fa-calendar-alt"></i><span th:text="#{posted}"></span> <span th:text="${News.dateTime}"></span></small>
+                        </div>
+                        <a href="#"> <img th:if="${!News.images.isEmpty()}" data-action="zoom" id="main-image" class="card-img-top"
+                                          th:src="|/files/${News.images.get(0).getName()}|"
+                                          alt="Card image"></a>
+                        <a href="#"> <img th:if="${News.images.isEmpty()}"  class="card-img-top"
+                                          src="/img/logo-land.jpg"
+                                          alt="Card image"></a>
+                        <div class="card-body">
+                            <p class="card-text text-justify" th:utext="${News.description}">
+
+                            </p>
+                        </div>
+                        <div class="card-footer" th:if="${News.document != null}">
+                            <a th:href="|/files/${News.document.name}|" th:text="#{downloadfile}"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- / News -->
+        <!-- services -->
+        <div class="col-lg-4 col-md-12" id="services">
+            <h3 class="my-3 custom-text-primary" th:text="#{Pictures}"> Pictures</h3>
+            <div class="row">
+                <!-- Picture 1 -->
+                <div th:each="image : ${News.images}" class="col-lg-12 py-2" >
+                    <div class="card shadow-sm">
+                        <img data-action="zoom" th:if="${!News.images.isEmpty()}" th:id="${image.getID()}" class="card-img-top"
+                             th:src="|/files/${image.getName()}|" alt="">
+
+                    </div>
+                </div>
+                <!-- / Picture 1 -->
+            </div>
+        </div>
+        <!-- / services -->
+    </div>
+    <!--/ News and services -->
+    <hr class="custom-bg-primary">
+    <!-- Missions -->
+    <h3 class="my-3 custom-text-primary"> <i class="far fa-newspaper"></i> <span th:text="#{News}"></span></h3>
+    <div>
+        <div class="row">
+            <div th:each="news : ${recentNews}" class="col-lg-4 my-2">
+                <div class="card mb-3 shadow-sm h-100">
+                    <a th:href="|/viewNews/${news.ID}|"> <img th:if="${!news.images.isEmpty()}" style="height: 200px; width: 100%; display: block;"
+                                                              th:src="|/files/${news.images.get(0).getName()}|" alt="Card image"></a>
+                    <a th:href="|/viewNews/${news.ID}|"> <img th:if="${news.images.isEmpty()}"
+                                                              src="/img/logo-land.jpg" class="card-img-top"
+                                                              alt="Card image"></a>
+                    <div class="card-body">
+                        <p class="card-text card-title text-dark " th:text="${news.title}">
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/ Missions -->
+</div>
+<!-- / Container -->
+<div th:replace="fragments/fragments :: footer"></div>
+<!-- Bootstrap core JavaScript -->
+<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+<script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/vendor/bootstrap/js/slick.js}"></script>
+<script th:src="@{/vendor/bootstrap/js/aos.js}"></script>
+<script th:src="@{/vendor/bootstrap/js/zoom.js}"></script>
+<script th:src="@{/vendor/bootstrap/js/transition.js}"></script>
+<script>
+    $('#news-slide').slick({
+        infinite: true,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        prevArrow: $('#prev'),
+        nextArrow: $('#next'),
+        autoplay: true,
+        autoplaySpeed: 3000,
+        speed: 500,
+        fade: true,
+        cssEase: 'linear'
+    });
+
+
+</script>
+<script>
+    AOS.init({
+        easing: 'ease-in-out-sine'
+    });
+</script>
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>
+</body>
+</html>

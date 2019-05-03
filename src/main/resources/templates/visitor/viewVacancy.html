@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Doni Abeje">
+    <title th:text="#{nav.Vacancies}">Vacancies</title>
+    <link th:href="@{/vendor/bootstrap/css/bootstrap-simplex.css}" rel="stylesheet">
+    <link th:href="@{/vendor/bootstrap/css/quill.snow.css}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville" rel="stylesheet">
+
+
+    <style>
+        .carousel-item {
+            height: 100vh;
+            min-height: 350px;
+            background: no-repeat center center scroll;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+        }
+
+        .carousel-item {
+            height: 400px;
+        }
+
+        .item img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            min-height: 300px;
+        }
+
+        .text-shadow {
+            text-shadow: 1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue;
+        }
+
+        body {
+            background: #FCFCFC;
+            font-family: 'Libre Baskerville', serif, "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            font-size: 0.8125rem;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+
+        .mapouter {
+            text-align: right;
+
+        }
+
+        .gmap_canvas {
+            overflow: hidden;
+            background: none !important;
+            height: 100%;
+            width: 100%;
+        }
+
+        footer a {
+            color: white;
+        }
+
+        .custom-bg-primary {
+            background: #056f8f !important;
+            border-color: #056f8f !important;
+
+        }
+
+        .custom-text-primary {
+            color: #056f8f !important;
+        }
+
+        .custom-hr-primary {
+            background: #056f8f !important;
+            border-color: #056f8f !important;
+
+        }
+
+        a {
+            color: #056f8f;
+        }
+
+        .custom-badge-primary {
+            color: #fff;
+            background-color: #056f8f;
+        }
+    </style>
+</head>
+<body>
+<div th:replace="fragments/fragments :: navigation"></div>
+
+<!-- Page Content -->
+<div class="container py-5 my-5">
+
+    <!-- Portfolio Item Heading -->
+    <!--<h1 class="my-4 custom-text-primary text-capitalize" ><span th:text="${Vacancy.title}"></span>-->
+
+
+
+
+    <!-- Portfolio Item Row -->
+    <div class="row ">
+
+
+        <div class="col-md-7 bg-white mt-3">
+            <div><h6 class="card-subtitle text-muted mt-3" ><i class="far fa-calendar-alt"> Deadline</i> <span th:text="${Vacancy.deadline}"></span></h6></div>
+            <div class="ql-editor" th:utext="${Vacancy.content}">
+
+            </div>
+
+
+        </div>
+
+
+        <div class="col-md-4 mt-3">
+            <img class="img-fluid" th:if="${Vacancy.image != ''}" th:src="|/files/${Vacancy.image}|" alt="">
+            <img class="img-fluid" th:if="${Vacancy.image == ''}" src="/files/vacancy.png" alt="">
+        </div>
+
+    </div>
+    <!-- /.row -->
+
+    <!-- Related Projects Row -->
+    <h3 class="my-4 custom-text-primary font-weight-bold" th:text="#{nav.Vacancies}">Other Vacancies</h3>
+
+    <div class="row">
+    <div th:each="vacancy : ${Vacancies}" class="col-lg-4 mb-3 ">
+        <div  class="card border-info h-100" >
+            <div class="card-header custom-bg-primary text-white" ><small><i class="far fa-calendar-alt"> Deadline</i> <span th:text="${vacancy.deadline}"></span></small></div>
+            <div class="card-body">
+                <h4 class="card-title" ><a th:href="|/visitor/viewVacancy/${vacancy.ID}|" class="text-capitalize" th:text="${T(com.doniabeje.moshewebsite.configuration.Utils).minify(vacancy.title, 70)}"></a></h4>
+                <p class="card-text" th:text="${T(com.doniabeje.moshewebsite.configuration.Utils).minify(vacancy.description, 300)}">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+        </div>
+
+    </div>
+    </div>
+    <!-- /.row -->
+
+</div>
+<!-- /.container -->
+
+<div th:replace="fragments/fragments :: footer"></div>
+    <!-- Bootstrap core JavaScript -->
+    <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+    <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/vendor/bootstrap/js/slick.js}"></script>
+    <script th:src="@{/vendor/bootstrap/js/aos.js}"></script>
+
+    <script th:src="@{/vendor/bootstrap/js/zoom.js}"></script>
+    <script th:src="@{/vendor/bootstrap/js/transition.js}"></script>
+    <script>
+        $('#news-slide').slick({
+            infinite: true,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            prevArrow: $('#prev'),
+            nextArrow: $('#next'),
+            autoplay: true,
+            autoplaySpeed: 3000,
+            speed: 500,
+            fade: true,
+            cssEase: 'linear'
+        });
+
+
+    </script>
+
+    <script>
+        AOS.init({
+            easing: 'ease-in-out-sine'
+        });
+    </script>
+
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })</script>
+</body>
+
+</html>
