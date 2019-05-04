@@ -13,6 +13,7 @@
     <link th:href="@{/vendor/bootstrap/css/slick-theme.css}" rel="stylesheet">
     <link th:href="@{/vendor/bootstrap/css/slick.css}" rel="stylesheet">
     <link th:href="@{/vendor/bootstrap/css/aos.css}" rel="stylesheet">
+    <link th:href="@{/vendor/bootstrap/css/hover-effect.css}" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
           integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville" rel="stylesheet">
@@ -76,6 +77,24 @@
             color: #fff;
             background-color: #056f8f;
         }
+
+        .suggested-news:hover{
+            transition: all .7s;
+
+        }
+
+        .text-overlay{
+            position: absolute;
+            top: 20px;
+            left: 0px;
+            background: rgba(0,0,0,.5);
+            color: white;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+.news-border{
+    border-bottom: 3px solid #056f8f !important
+}
     </style>
 </head>
 <body>
@@ -106,6 +125,7 @@
                         <a href="#"> <img th:if="${News.images.isEmpty()}"  class="card-img-top"
                                           src="/img/logo-land.jpg"
                                           alt="Card image"></a>
+
                         <div class="card-body">
                             <p class="card-text text-justify" th:utext="${News.description}">
 
@@ -137,21 +157,29 @@
         <!-- / services -->
     </div>
     <!--/ News and services -->
-    <hr class="custom-bg-primary">
+    <hr class="text-white-50">
     <!-- Missions -->
     <h3 class="my-3 custom-text-primary"> <i class="far fa-newspaper"></i> <span th:text="#{News}"></span></h3>
     <div>
         <div class="row">
             <div th:each="news : ${recentNews}" class="col-lg-4 my-2">
-                <div class="card mb-3 shadow-sm h-100">
-                    <a th:href="|/viewNews/${news.ID}|"> <img th:if="${!news.images.isEmpty()}" style="height: 200px; width: 100%; display: block;"
-                                                              th:src="|/files/${news.images.get(0).getName()}|" alt="Card image"></a>
+                <div class="card mb-3 shadow-sm h-100 hover-zoomin">
+                    <a th:href="|/viewNews/${news.ID}|">
+                        <img th:if="${!news.images.isEmpty()}" style="height: 200px; width: 100%; display: block;"
+                                                              th:src="|/files/${news.images.get(0).getName()}|" alt="Card image">
+
+
+
+                    </a>
                     <a th:href="|/viewNews/${news.ID}|"> <img th:if="${news.images.isEmpty()}"
                                                               src="/img/logo-land.jpg" class="card-img-top"
                                                               alt="Card image"></a>
-                    <div class="card-body">
-                        <p class="card-text card-title text-dark " th:text="${news.title}">
-                        </p>
+                    <div class="text-overlay" th:text="${news.dateTime}">
+
+                    </div>
+                    <div class="card-body news-border">
+                        <h5 class="card-text card-title text-dark text-center " th:text="${news.title}">
+                        </h5>
                     </div>
                 </div>
             </div>

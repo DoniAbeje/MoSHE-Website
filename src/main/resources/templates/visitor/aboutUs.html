@@ -106,15 +106,19 @@
                       <form role="form" th:action="@{/visitor/addSuggestion}"  th:method="post">
 
                           <div class="form-group">
+                              <input type="text" class="form-control"  name="name"  th:placeholder="#{name}" >
+                          </div>
+
+                          <div class="form-group">
                               <input type="email" class="form-control"  name="email"  th:placeholder="#{email}" required>
                           </div>
 
                           <div class="form-group">
-                              <input type="email" class="form-control"  name="phone"  th:placeholder="#{phone}" >
+                              <input type="text" class="form-control"  name="phone"  th:placeholder="#{phone}" >
                           </div>
 
                          <div class="form-group">
-                            <textarea class="form-control" type="textarea" name="content"  th:placeholder="#{suggestion}" rows="7" ></textarea>
+                            <textarea class="form-control" type="textarea" name="content"  th:placeholder="#{message}" rows="7" ></textarea>
                         </div>
 
                         <button type="submit" class="btn custom-badge-primary pull-right my-2" th:text="#{submit}">Submit</button>

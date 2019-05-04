@@ -410,11 +410,12 @@ public class VisitorController {
     }
 
     @PostMapping("visitor/addSuggestion")
-    public String addSuggestion(@RequestParam("email") String email, @RequestParam("content") String content, @RequestParam("phone") String phone){
+    public String addSuggestion(@RequestParam("email") String email, @RequestParam("content") String content, @RequestParam("phone") String phone, @RequestParam("name") String name){
         Suggestion suggestion = new Suggestion();
         suggestion.setContent(content);
         suggestion.setEmail(email);
         suggestion.setPhone(phone);
+        suggestion.setName(name);
 
         suggestionRepository.save(suggestion);
 
