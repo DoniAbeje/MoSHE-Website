@@ -22,6 +22,7 @@ public class Suggestion {
     private String email;
 
     private String phone;
+    private String name;
 
     @Temporal(TemporalType.DATE)
     private Date dateTime = new Date();
