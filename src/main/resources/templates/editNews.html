@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title>Edit News</title>
     <link th:href="@{/vendor/bootstrap/css/bootstrap-simplex.css}" rel="stylesheet">
+<link rel="shortcut icon" href="/img/logo-resized.png">
+
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
           integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville" rel="stylesheet">
@@ -59,10 +61,29 @@
                 <div class="form-group">
                     <LABEL>Document</LABEL>
                     <select class="form-control" th:field="*{document}">
+                        <option VALUE="" >SELECT DOCUMENT</option>
                         <option th:each="doc : ${Documents}" th:value="${doc.ID}" th:text="${doc.title}"></option>
                     </select>
                 </div>
 
+
+
+                <div class="form-group">
+                    <fieldset class="form-group">
+
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" name="isVideo" th:field ="*{video}")
+                                >
+                                Is Video
+                            </label>
+                        </div>
+                    </fieldset>
+                </div>
+
+                <div class="form-group">
+                    <input type="text" class="form-control"  name="video" th:field = "*{videoLink}" placeholder="Youtube Video Link" >
+                </div>
 
 
                 <div class="form-group">

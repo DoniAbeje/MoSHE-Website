@@ -3,6 +3,7 @@ package com.doniabeje.moshewebsite.controllers;
 
 import com.doniabeje.moshewebsite.domains.*;
 import com.doniabeje.moshewebsite.repositories.GeneralInformationRepository;
+import com.doniabeje.moshewebsite.repositories.LinkRepository;
 import com.doniabeje.moshewebsite.repositories.SuggestionRepository;
 import com.doniabeje.moshewebsite.services.*;
 import org.attoparser.dom.DocType;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -57,6 +59,7 @@ public class AdminController {
 
     private GeneralInformationRepository generalInformationRepository;
     private SuggestionRepository suggestionRepository;
+    private LinkRepository linkRepository;
     private String imagesFolder = "C:\\Users\\user\\Desktop\\MoSHE\\moshewebsite\\files\\";
     private static final String DEFAULT_PAGE_SIZE = "10";
 
@@ -65,7 +68,7 @@ public class AdminController {
                            VacancyService vacancyService, TenderService tenderService, NewsImageService newsImageService,
                            NewsService newsService, DocumentService documentService, ServiceService serviceService, DocumentTypeService documentTypeService,
                            JobService jobService, PersonService personService, GeneralInformationRepository generalInformationRepository
-                            ,SuggestionRepository suggestionRepository) {
+                            ,SuggestionRepository suggestionRepository, LinkRepository linkRepository) {
 
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
@@ -81,6 +84,7 @@ public class AdminController {
         this.personService = personService;
         this.generalInformationRepository = generalInformationRepository;
         this.suggestionRepository = suggestionRepository;
+        this.linkRepository = linkRepository;
     }
 
 
@@ -111,6 +115,25 @@ public class AdminController {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userService.saveUser(user);
         return "redirect:/";
+    }
+    @GetMapping("/editUser")
+    public String editUser(Model model, @AuthenticationPrincipal User user) {
+
+        model.addAttribute("NewUser",  user);
+        return "editUser";
+    }
+
+    @PostMapping("/editUser")
+    public String editUserPost(@Valid @ModelAttribute("NewUser") User user, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "editUser";
+        }
+
+        User updatedUser = userService.findUserByUsername(user.getUsername());
+        updatedUser.setPassword(passwordEncoder.encode(user.getPassword()));
+        updatedUser.setFullName(user.getFullName());
+        userService.saveUser(updatedUser);
+        return "redirect:/editUser?success=true";
     }
 
     @GetMapping("/login")
@@ -214,6 +237,11 @@ public class AdminController {
     public String addTender(Model model) {
         model.addAttribute("NewTender", new Tender());
         return "addTender";
+    }
+    @GetMapping("/deleteTender/{id}")
+    public String deleteTender(@PathVariable("id") long id) {
+        tenderService.deleteById(id);
+        return "redirect:/tenders";
     }
 
     @PostMapping("/addTender")
@@ -504,7 +532,7 @@ public class AdminController {
             newsImageService.deleteAll(newsImages);
             newsService.deleteById(id);
         }
-        return "redirect:/vacancies";
+        return "redirect:/news";
     }
 
 
@@ -714,10 +742,13 @@ public class AdminController {
     }
 
     @PostMapping("/updateGeneralInformation")
-    public String updateGeneralInformationPost(@ModelAttribute("GeneralInformation") GeneralInforamtion generalInforamtion, MultipartFile file, @RequestParam("description") String englishDescription, @RequestParam("descriptionAM") String amharicDescription, @RequestParam("location") String location){
+    public String updateGeneralInformationPost(@ModelAttribute("GeneralInformation") GeneralInforamtion generalInforamtion, @RequestParam("file") MultipartFile file,@RequestParam("structureImagefile") MultipartFile structureImage, @RequestParam("description") String englishDescription, @RequestParam("descriptionAM") String amharicDescription, @RequestParam("location") String location){
 
         if (!file.isEmpty()){
             generalInforamtion.setOfficeImage(uploadFile(file));
+        }
+        if (!structureImage.isEmpty()){
+            generalInforamtion.setStructureImage(uploadFile(structureImage));
         }
         generalInforamtion.setAmharicDescription(amharicDescription);
         generalInforamtion.setEnglishDescription(englishDescription);
@@ -738,6 +769,91 @@ public class AdminController {
         suggestionRepository.deleteById(id);
         return "redirect:/suggestions";
     }
+
+
+
+
+
+
+
+
+
+    @GetMapping("/addLink")
+    public String addLink(Model model) {
+        model.addAttribute("NewLink", new Link());
+        return "addLink";
+    }
+
+    @PostMapping("/addLink")
+    public String addLinkPost(@Valid @ModelAttribute("NewLink") Link link, BindingResult bindingResult, @RequestParam("file") MultipartFile file) {
+        if (bindingResult.hasErrors()) {
+            return "addLink";
+        }
+
+        if (!file.isEmpty()) {
+            link.setImage(uploadFile(file));
+        }
+        linkRepository.save(link);
+
+        return "redirect:/links";
+    }
+
+    @GetMapping("/links")
+    public String links(Model model, @RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "size", defaultValue = DEFAULT_PAGE_SIZE) int size, @RequestParam(name = "sort", defaultValue = "title") String sort, @RequestParam(name = "ascending", defaultValue = "1") int ascending) {
+        PageRequest pageRequest = getPageRequest(page, size, sort, ascending);
+        Page pages = linkRepository.findAll(pageRequest);
+
+        preparePageModel(model, page, size, sort, pages, ascending, "Links");
+
+        return "links";
+    }
+
+
+    @GetMapping("/editLink/{id}")
+    public String editLink(Model model, @PathVariable("id") Long id) {
+        Optional<Link> optionalLink = linkRepository.findById(id);
+
+        if (optionalLink.isPresent()) {
+            model.addAttribute("Link", optionalLink.get());
+        }
+
+        return "editLink";
+    }
+
+
+    @PostMapping("/editLink")
+    public String editLinkPost(@Valid @ModelAttribute("Link") Link link, BindingResult bindingResult, @RequestParam("file") MultipartFile file) {
+        if (bindingResult.hasErrors()) {
+            return "editLink";
+        }
+
+        if (!file.isEmpty()) {
+            link.setImage(uploadFile(file));
+        }
+        linkRepository.save(link);
+
+        return "redirect:/links";
+    }
+
+
+    @GetMapping("/deleteLink/{id}")
+    public String deleteLink(@PathVariable("id") long id) {
+        Optional<Link> optionalLink = linkRepository.findById(id);
+        if (optionalLink.isPresent()) {
+            linkRepository.deleteById(id);
+        }
+        return "redirect:/links";
+    }
+
+
+
+
+
+
+
+
+
+
 
 
     private NewsImage saveNewsImage(MultipartFile file3, boolean isMain) {

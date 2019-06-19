@@ -42,6 +42,10 @@ public class News {
     @Column(length = 65535, columnDefinition = "text")
     private String content;
 
+    private boolean isVideo;
+
+    private String videoLink;
+
     @ManyToOne
     private Document document;
 

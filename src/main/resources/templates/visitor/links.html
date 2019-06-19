@@ -5,15 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="Doni Abeje">
-    <title th:text="#{Administratives}"></title>
+    <title th:text="#{nav.Links}"></title>
     <!--<th:block layout:insert="~{fragments/pagetitle}"/>-->
     <!-- Bootstrap core CSS -->
     <!-- <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> -->
     <link th:href="@{/vendor/bootstrap/css/bootstrap-simplex.css}" rel="stylesheet">
 <link rel="shortcut icon" href="/img/logo-resized.png">
 
-    <link th:href="@{/vendor/bootstrap/css/quill.snow.css}" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" />
     <link th:href="@{/vendor/bootstrap/css/slick-theme.css}" rel="stylesheet">
     <link th:href="@{/vendor/bootstrap/css/slick.css}" rel="stylesheet">
     <link th:href="@{/vendor/bootstrap/css/aos.css}" rel="stylesheet">
@@ -44,7 +42,8 @@
             text-shadow: 1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue;
         }
         body {
-            background: #FCFCFC;
+            background-color: #FCFCFC;
+
             font-family: 'Libre Baskerville', serif, "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
             font-size: 0.8125rem;
             font-weight: 400;
@@ -80,6 +79,14 @@
             color: #fff;
             background-color: #056f8f;
         }
+
+        a.custom-card,
+a.custom-card:hover {
+  color: inherit;
+  text-decoration: none
+}
+
+        links.html
     </style>
 </head>
 <body>
@@ -87,52 +94,29 @@
 
 <!-- Page Content -->
 <div class="container py-5 my-5 d-flex justify-content-center ">
-    <!--about us-->
-    <div class="col-lg-12">
+    <!-- links -->
+    <div class="col-md-12" id="links">
+        <h1 class="text-center custom-text-primary mt-3"><i class="fa fa-link"></i></h1>
+        <h2 class="mb-3 custom-text-primary text-center"> <span th:text="#{nav.Links}" >Links</span></h2>
+        <div class="row">
+            <!-- link 1 -->
+            <div class="col-lg-4 my-2" th:each="link : ${Links}">
 
-        <!-- News -->
+                    <a class="custom-card" th:href="${link.link}">
+                        <div class="card text-white border-0  my-3 h-100" >
+                            <div class="card-header " >  <img  th:src="|/files/${link.image}|" class="img-fluid" alt=""></div>
+                            <div class="card-body text-primary text-center" th:text="${link.title}"> Applicant Allocation System</div>
 
-            <div class="row">
-                <div class=" col-md-8 ">
-                    <div class="card mb-3 shadow-sm px-2">
-                        <div class="card-body">
-                            <div class="col-lg-12 d-flex justify-content-center ">
-                                <div class="col-lg-3 shadow-sm p-2">
-                                    <img data-action="zoom" class="card-img-top"  th:src="|/files/${Person.image}|">
-                                </div>
-                            </div>
-
-                            <h1 class="mt-5 custom-text-primary text-center" th:text="${Person.name}"> </h1>
-
-                            <div class="ql-editor" th:utext="${Person.description}">
-
-                            </div>
                         </div>
+                    </a>
 
 
-
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <h2 class="custom-text-primary" th:text="#{Administratives}"></h2>
-                    <div class="list-group">
-
-                        <a  th:each="person : ${Persons}" th:href="|/visitor/person/${person.ID}|" th:classappend="${person.ID == Person.ID}?'custom-badge-primary' : ''" class="list-group-item list-group-item-action" ><span th:text="${person.name}"></span> <span class="badge custom-badge-primary badge-pill float-right" th:text="${person.job.title}">1</span></a>
-
-                    </div>
-                    <div class="mt-5">
-                        <h4  th:text="${Person.job.title}" class="custom-text-primary"></h4>
-                        <p th:text="${Person.job.description}" class="text-justify "></p>
-                    </div>
-                </div>
             </div>
+            <!-- / link 1 -->
 
-        <!-- / News -->
-
-
-
+        </div>
     </div>
-    <!--/about us-->
+    <!-- / links -->
 </div>
 <!-- / Container -->
 <div th:replace="fragments/fragments :: footer"></div>

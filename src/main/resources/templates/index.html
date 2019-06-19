@@ -11,6 +11,8 @@
     <!-- Bootstrap core CSS -->
     <!-- <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> -->
     <link th:href="@{/vendor/bootstrap/css/bootstrap-simplex.css}" rel="stylesheet">
+<link rel="shortcut icon" href="/img/logo-resized.png">
+
     <link th:href="@{/vendor/bootstrap/css/slick-theme.css}" rel="stylesheet">
     <link th:href="@{/vendor/bootstrap/css/slick.css}" rel="stylesheet">
     <link th:href="@{/vendor/bootstrap/css/aos.css}" rel="stylesheet">
@@ -195,12 +197,34 @@
                             </h5>
                             <small class="card-subtitle custom-text-primary" ><i class="far fa-calendar-alt"></i> <span th:text="${news.dateTime}"></span></small>
                         </div>
-                        <a th:href="|/viewNews/${news.ID}|"> <img th:if="${!news.images.isEmpty()}" style="height: 350px; width: 100%; display: block;"
-                                                                  th:src="|/files/${news.images.get(0).getName()}|"
-                                                                  alt="Card image"></a>
-                        <a th:href="|/viewNews/${news.ID}|"> <img th:if="${news.images.isEmpty()}" style="height: 350px; width: 100%; display: block;"
+
+                        <a th:href="|/viewNews/${news.ID}|">
+
+                            <iframe th:if="${news.isVideo()}" width="520" height="315"
+                                    th:src="${news.videoLink}">
+                            </iframe>
+
+                            <span th:if="${!news.isVideo()}">
+
+                                <img th:if="${!news.images.isEmpty()}" style="height: 350px; width: 100%; display: block;"
+                                     th:src="|/files/${news.images.get(0).getName()}|"
+                                     alt="Card image">
+
+                            </span>
+
+
+
+
+                        </a>
+                        <a th:href="|/viewNews/${news.ID}|">
+
+
+                            <img th:if="${news.images.isEmpty() and !news.isVideo()}" style="height: 350px; width: 100%; display: block;"
                                                                   src="/img/logo-land.jpg"
-                                                                  alt="Card image"></a>
+                                                                  alt="Card image">
+
+
+                        </a>
                         <div class="card-body">
                             <p class="card-text text-justify text-dark" th:text="${T(com.doniabeje.moshewebsite.configuration.Utils).minify(news.description, 300)}">
                                 During the visit, her Excellency Prof. Hirut W/Mariam, Minster of Science and Higher

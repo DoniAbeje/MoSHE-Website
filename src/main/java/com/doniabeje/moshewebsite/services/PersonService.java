@@ -1,5 +1,6 @@
 package com.doniabeje.moshewebsite.services;
 
+import com.doniabeje.moshewebsite.domains.Job;
 import com.doniabeje.moshewebsite.domains.Person;
 import com.doniabeje.moshewebsite.domains.News;
 import com.doniabeje.moshewebsite.repositories.PersonRepository;
@@ -23,6 +24,7 @@ public interface PersonService {
 
     Page<Person> findAll(Pageable pageRequest);
     Page<Person> findAllByLanguage(News.Language language, Pageable pageable);
+    Page<Person> findAllByJob(Job job, Pageable pageable);
 
 
     Iterable<Person> findAllById(Iterable<Long> ids);
@@ -80,6 +82,10 @@ class PersonServiceImpl implements PersonService{
         return personRepository.findAllByLanguage(language, pageable);
     }
 
+    @Override
+    public Page<Person> findAllByJob(Job job, Pageable pageable) {
+        return personRepository.findAllByJob(job, pageable);
+    }
 
 
     @Override

@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title>Documents</title>
     <link th:href="@{/vendor/bootstrap/css/bootstrap-simplex.css}" rel="stylesheet">
+<link rel="shortcut icon" href="/img/logo-resized.png">
+
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
           integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville" rel="stylesheet">
@@ -98,7 +100,7 @@
          <h2>Documents</h2>
          <table class="table table-striped table-bordered content-form shadow mt-2">
              <tr><th>Title</th> <th>Document Type</th><th>Posted Date</th></tr>
-             <tr th:each="document : ${Documents}"><td class="" th:text="${document.title}"></td><td th:text="${document.documentType.title}"></td><td    width="20%" th:text="${document.dateTime}"></td><td width="20%"><a class="btn btn-secondary custom-text-primary" th:href="|/editDocument/${document.getID()}|"><i class="fa fa-edit"></i> Edit</a> <a class="btn btn-secondary text-primary" th:href="|/deleteDocument/${document.getID()}|"><i class="fa fa-delete"></i> Delete</a></td></tr>
+             <tr th:each="document : ${Documents}"><td class="" th:text="${document.title}"></td><td th:text="${document.documentType.title}"></td><td    width="20%" th:text="${document.dateTime}"></td><td width="20%"><a class="btn btn-secondary custom-text-primary" th:href="|/editDocument/${document.getID()}|"><i class="fa fa-edit"></i> Edit</a> <a class="btn btn-secondary text-primary delete-button" th:href="|/deleteDocument/${document.getID()}|"><i class="fa fa-delete"></i> Delete</a></td></tr>
          </table>
      </div>
 
@@ -128,7 +130,7 @@
                       <td><label><input th:type="radio" name="language"  th:checked="${docType.language.toString() == 'AMHARIC'}"  value="AMHARIC"> አማርኛ</label></td>
                       <td><label><input th:type="radio" name="language" th:checked="${docType.language.toString() == 'ENGLISH'}"  value="ENGLISH"> English</label></td>
                       <td><input type="submit" class="btn btn-sm btn-outline-info" value="Update"></td>
-                      <td><a th:href="|/deleteDocumentType/${docType.getID()}|" class="btn btn-sm btn-outline-primary">Delete</a></td>
+                      <td><a th:href="|/deleteDocumentType/${docType.getID()}|" class="btn btn-sm btn-outline-primary delete-button">Delete</a></td>
                   </form>
 
               </tr>
@@ -257,6 +259,16 @@
     function search() {
         window.location.href = '/searchDocuments?keyword=' + $('#keyword-input').val() ;
     }
+
+    $('.delete-button').click(function (event) {
+        event.preventDefault()
+
+        var deleteflag = confirm("Are you sure you want to delete?");
+        if (deleteflag) {
+            console.log(this)
+            window.location.href = this.href
+        }
+    })
 </script>
 </body>
 </html>

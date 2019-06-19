@@ -2,7 +2,7 @@
 <html lang="en"  xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Register</title>
+    <title>Edit Account</title>
     <link th:href="@{/vendor/bootstrap/css/bootstrap-simplex.css}" rel="stylesheet">
 <link rel="shortcut icon" href="/img/logo-resized.png">
 
@@ -44,27 +44,29 @@
     <!-- login -->
     <div class="col-lg-6  content-form shadow mt-5 pt-5">
         <div class="form-area ">
-            <form role="form" class="" th:action="@{/register}" th:object="${NewUser}" th:method="post">
+            <form role="form" class="" th:action="@{/editUser}" th:object="${NewUser}" th:method="post">
                 <br style="clear:both">
-                <h3 style="margin-bottom: 25px; text-align: center;" class="font-weight-bolder"> <i class="fa fa-user-circle"></i> Register</h3>
+                <h3 style="margin-bottom: 25px; text-align: center;" class="font-weight-bolder"> <i class="fa fa-user-circle"></i> Update Account Info</h3>
 
                 <div class="d-flex justify-content-center">
 
                     <div>
 
                         <div class="form-group">
-                            <input type="text" class="form-control"  name="username" th:field = "*{username}" placeholder="User Name" required>
+                            <input hidden="" type="text" class="form-control"  name="username" th:field = "*{username}" placeholder="User Name" required>
                             <span class="text-danger my-2" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
                         </div>
 
 
                         <div class="form-group">
+                            <label>Full Name</label>
                             <input type="text" class="form-control"  name="fullName" th:field = "*{fullName}" placeholder="Full Name" required>
                             <span class="text-danger" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></span>
                         </div>
 
 
                         <div class="form-group">
+                            <label>Password</label>
                             <input type="password" class="form-control"  name="password" th:field = "*{password}" placeholder="Password" required>
                             <span class="text-danger my-2" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
                         </div>
@@ -72,8 +74,13 @@
 
 
                         <button type="submit" id="submit" name="submit"
-                                class="btn custom-badge-primary mb-2">Register</button>
+                                class="btn custom-badge-primary mb-2">Update</button>
+                        <div th:if="${param.success}"  class="alert alert-dismissible alert-success">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            <strong > Account Updated Successfully</strong>
+                        </div>
                     </div>
+
                 </div>
             </form>
         </div>

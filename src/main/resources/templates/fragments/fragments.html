@@ -11,13 +11,13 @@
         }
     </style>
     <div class="container-fluid">
-        <a class="navbar-brand py-0 pl-3" href="/"><img style="height: 60px; width: 60px"
-                                                            th:src="@{/img/logo-resized.png}"><span th:text="#{nav.Title}">s</span></a>
+        <a class="navbar-brand py-0 pl-5 ml-3" href="/"><img style="height: 60px; width: 60px"
+                                                            th:src="@{/img/logo-resized.png}"><span class="text-primary" th:text="#{nav.Title}">s</span></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                 aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse pr-3" id="navbarResponsive">
+        <div class="collapse navbar-collapse pr-5 mr-3" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
                     <a class="nav-link  text-dark" href="/"><span th:text="#{nav.Home}"></span>
@@ -25,8 +25,12 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link text-dark" href="/visitor/aboutUs" th:text="#{nav.aboutus}"></a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link text-dark" href="/visitor/newsList" th:text="#{nav.News}">News</a>
                 </li>
+
 
                 <li class="nav-item dropdown">
                     <a class="nav-link  dropdown-toggle text-dark" href="/visitor/services" th:text="#{nav.Services}"
@@ -41,13 +45,13 @@
                 </li>
 
                 <li class="nav-item dropdown">
-                    <a class="nav-link  dropdown-toggle text-dark"  th:text="#{Administratives}"
+                    <a class="nav-link  dropdown-toggle text-dark" href="/visitor/structure"  th:text="#{Administratives}"
                        id="navbarDropdown" role="button"  aria-haspopup="true"
                        aria-expanded="false" >
 
                     </a>
                     <div class="dropdown-menu " aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item py-1 " th:each="person : ${NavAdministratives}"  th:href="|/visitor/person/${person.getID()}|" ><h7 th:text="${person.name}"></h7></a>
+                        <a class="dropdown-item py-1 " th:each="job : ${NavJobs}"  th:href="|/visitor/adminByJob/${job.getID()}|" ><h7 th:text="${job.title}"></h7></a>
 
                     </div>
                 </li>
@@ -70,31 +74,10 @@
 
                     </div>
                 </li>
+
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="/visitor/aboutUs" th:text="#{nav.aboutus}"></a>
+                    <a class="nav-link text-dark" href="/visitor/links" th:text="#{nav.Links}">News</a>
                 </li>
-                <!--<li class="nav-item dropdown">-->
-                    <!--<a class="nav-link custom-text-primary dropdown-toggle font-weight-bold" href="#"-->
-                       <!--id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"-->
-                       <!--aria-expanded="false">-->
-                        <!--Documents-->
-                    <!--</a>-->
-                    <!--<div class="dropdown-menu" aria-labelledby="navbarDropdown">-->
-                        <!--<a class="dropdown-item py-2" href="documens.html"><span>Guidelines</span> <span-->
-                                <!--class="badge custom-badge-primary float-right">2</span></a>-->
-                        <!--<a class="dropdown-item py-2" href="documens.html"><span>Manuals</span><span-->
-                                <!--class="badge custom-badge-primary float-right">5</span></a>-->
-                        <!--<a class="dropdown-item py-2" href="documens.html"><span>Policy</span><span-->
-                                <!--class="badge custom-badge-primary float-right">12</span></a>-->
-                        <!--<a class="dropdown-item py-2" href="documens.html"><span>Standards</span><span-->
-                                <!--class="badge custom-badge-primary float-right">4</span></a>-->
-                        <!--<div class="dropdown-divider"></div>-->
-                        <!--<a class="dropdown-item py-2" href="documens.html"><span>Other</span><span-->
-                                <!--class="badge custom-badge-primary float-right">2</span></a>-->
-                        <!--<a class="dropdown-item py-2" href="documens.html"><span>All</span><span-->
-                                <!--class="badge custom-badge-primary float-right">25</span></a>-->
-                    <!--</div>-->
-                <!--</li>-->
                 <li class="nav-item dropdown">
                     <a class="nav-link  dropdown-toggle" href="#"
                        id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
@@ -226,7 +209,7 @@
     <!-- Footer Links -->
 
     <!-- Copyright -->
-    <div class="footer-copyright text-center py-3 bg-dark text-white" th:text="#{copyright}">© 2019 Copyright: MoSHE
+    <div class="footer-copyright text-center py-3 bg-dark text-white" th:text="#{copyright}"> 2019 Copyright: MoSHE
     </div>
     <!-- Copyright -->
 
@@ -238,7 +221,7 @@
 <!-- Navigation -->
 <nav th:fragment="admin-navigation" class="navbar navbar-expand-lg navbar-light bg-white border-0 "
      xmlns:th="http://www.w3.org/1999/xhtml">
-    <div class="container">
+    <div class="container-fluid mx-5">
         <a class="navbar-brand py-0" href="/"><img style="height: 55px; width: 55px"
                                                             th:src="@{/img/logo-2.jpg}"> MoSHE - Admin</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
@@ -264,6 +247,9 @@
                 <li class="nav-item">
                     <a class="nav-link custom-text-primary font-weight-bold" href="/services">Services</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link custom-text-primary font-weight-bold" href="/links">Links</a>
+                </li>
 
                 <li class="nav-item">
                     <a class="nav-link custom-text-primary font-weight-bold" href="/persons">Administration</a>
@@ -275,6 +261,9 @@
 
                 <li class="nav-item">
                     <a class="nav-link custom-text-primary font-weight-bold" href="/suggestions">Suggestions</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link custom-text-primary font-weight-bold" href="/editUser">Account</a>
                 </li>
 
 
@@ -290,8 +279,9 @@
                         <a class="dropdown-item py-2" href="/addNews"><span>News</span></a>
                         <a class="dropdown-item py-2" href="/addDocument"><span>Document</span></a>
                         <a class="dropdown-item py-2" href="/addService"><span>Service</span></a>
+                        <a class="dropdown-item py-2" href="/addLink"><span>Link</span></a>
                         <a class="dropdown-item py-2" href="/addPerson"><span>Administration</span></a>
-                        <a class="dropdown-item py-2" href="/register"><span>Admin</span></a>
+                        <a class="dropdown-item py-2" href="/register"><span>Account</span></a>
                     </div>
 
                 </li>

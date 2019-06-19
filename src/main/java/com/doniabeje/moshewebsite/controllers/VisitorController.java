@@ -3,6 +3,7 @@ package com.doniabeje.moshewebsite.controllers;
 import com.doniabeje.moshewebsite.configuration.Utils;
 import com.doniabeje.moshewebsite.domains.*;
 import com.doniabeje.moshewebsite.repositories.GeneralInformationRepository;
+import com.doniabeje.moshewebsite.repositories.LinkRepository;
 import com.doniabeje.moshewebsite.repositories.SuggestionRepository;
 import com.doniabeje.moshewebsite.services.*;
 import com.sun.org.apache.xpath.internal.operations.Mod;
@@ -39,6 +40,8 @@ public class VisitorController {
     private PersonService personService;
     private GeneralInformationRepository generalInformationRepository;
     private SuggestionRepository suggestionRepository;
+    private LinkRepository linkRepository;
+    private JobService jobService;
 
     private static final String DEFAULT_PAGE_SIZE = "10";
 
@@ -46,7 +49,8 @@ public class VisitorController {
     public VisitorController(NewsService newsService, VacancyService vacancyService,
                              TenderService tenderService, DocumentService documentService,
                              ServiceService serviceService, DocumentTypeService documentTypeService, PersonService personService,
-                             GeneralInformationRepository generalInformationRepository, SuggestionRepository suggestionRepository) {
+                             GeneralInformationRepository generalInformationRepository, SuggestionRepository suggestionRepository,
+                             JobService jobService, LinkRepository linkRepository) {
         this.newsService = newsService;
         this.vacancyService = vacancyService;
         this.tenderService = tenderService;
@@ -56,6 +60,8 @@ public class VisitorController {
         this.personService = personService;
         this.generalInformationRepository = generalInformationRepository;
         this.suggestionRepository = suggestionRepository;
+        this.linkRepository = linkRepository;
+        this.jobService = jobService;
     }
 
     @ModelAttribute("Utils")
@@ -69,15 +75,15 @@ public class VisitorController {
         return generalInformationRepository.findById(1L).get();
     }
 
-    @ModelAttribute("NavAdministratives")
-    public Page<Person>  NavAdministratives(Locale locale){
-        PageRequest pageRequest = AdminController.getPageRequest(0, 4, "name", 1);
+    @ModelAttribute("NavJobs")
+    public Page<Job>  NavJobs(Locale locale){
+        PageRequest pageRequest = AdminController.getPageRequest(0, 100, "title", 1);
 
         if (locale.getLanguage() .equals("am")) {
-            return  personService.findAllByLanguage(News.Language.AMHARIC, pageRequest);
+            return  jobService.findAllByLanguage(News.Language.AMHARIC, pageRequest);
         }
         else  {
-            return personService.findAllByLanguage(News.Language.ENGLISH, pageRequest);
+            return jobService.findAllByLanguage(News.Language.ENGLISH, pageRequest);
         }
     }
 
@@ -347,7 +353,7 @@ public class VisitorController {
     }
 
     @GetMapping("/visitor/newsList")
-    public String newsList(Model model, @RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "size", defaultValue = DEFAULT_PAGE_SIZE) int size, @RequestParam(name = "sort", defaultValue = "dateTime") String sort, @RequestParam(name = "ascending", defaultValue = "1") int ascending, Locale locale){
+    public String newsList(Model model, @RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "size", defaultValue = DEFAULT_PAGE_SIZE) int size, @RequestParam(name = "sort", defaultValue = "dateTime") String sort, @RequestParam(name = "ascending", defaultValue = "0") int ascending, Locale locale){
         PageRequest pageRequest = AdminController.getPageRequest(page, size, sort, ascending);
         Page pages ;
 
@@ -395,18 +401,32 @@ public class VisitorController {
         return "/visitor/services";
     }
 
+    @GetMapping("/visitor/links")
+    public String links(Model model, Locale locale){
+
+        model.addAttribute("Links",linkRepository.findAll());
+
+
+        return "/visitor/links";
+    }
+
     @GetMapping("visitor/person/{id}")
     public String person(@PathVariable("id") long id, Model model, Locale locale){
-        PageRequest pageRequest = AdminController.getPageRequest(0, 1000, "name", 1);
+        getPersonsList(model, locale);
+        model.addAttribute("Person", personService.findById(id).get());
+        return "/visitor/person";
+    }
+
+    private void getPersonsList(Model model, Locale locale) {
+
+        PageRequest pageRequest = AdminController.getPageRequest(0, 1000, "dateTime", 1);
         if (locale.getLanguage() .equals("am")) {
             model.addAttribute("Persons",personService.findAllByLanguage(News.Language.AMHARIC, pageRequest));
         }
         else{
             model.addAttribute("Persons",personService.findAllByLanguage(News.Language.ENGLISH, pageRequest));
         }
-        model.addAttribute("Person", personService.findById(id).get());
 
-        return "/visitor/person";
     }
 
     @PostMapping("visitor/addSuggestion")
@@ -441,6 +461,27 @@ public class VisitorController {
 
         return "/visitor/newsListArchives";
     }
+
+    @GetMapping("/visitor/structure")
+    public String   structure(){
+
+        return "/visitor/structure";
+    }
+    @GetMapping("/visitor/adminByJob/{id}")
+    public String   adminByJob(@PathVariable("id") Long jobId, Model model, Locale locale){
+        PageRequest pageRequest = AdminController.getPageRequest(0, 100, "dateTime", 1);
+        Job job = jobService.findById(jobId).get();
+        List<Person> persons = personService.findAllByJob(job, pageRequest).getContent();
+
+        if (persons.size() == 1){
+            return "redirect:/visitor/person/" + persons.get(0).getID();
+        }
+        getPersonsList(model, locale);
+        model.addAttribute("PersonsByJob", persons);
+
+        return "/visitor/persons";
+    }
+
 
 
 

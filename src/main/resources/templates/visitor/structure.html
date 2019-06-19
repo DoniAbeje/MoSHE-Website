@@ -88,43 +88,14 @@
 <!-- Page Content -->
 <div class="container py-5 my-5 d-flex justify-content-center ">
     <!--about us-->
-    <div class="col-lg-12">
+    <div class="col-lg-12 d-flex justify-content-center">
 
         <!-- News -->
 
-            <div class="row">
-                <div class=" col-md-8 ">
-                    <div class="card mb-3 shadow-sm px-2">
-                        <div class="card-body">
-                            <div class="col-lg-12 d-flex justify-content-center ">
-                                <div class="col-lg-3 shadow-sm p-2">
-                                    <img data-action="zoom" class="card-img-top"  th:src="|/files/${Person.image}|">
-                                </div>
-                            </div>
-
-                            <h1 class="mt-5 custom-text-primary text-center" th:text="${Person.name}"> </h1>
-
-                            <div class="ql-editor" th:utext="${Person.description}">
-
-                            </div>
-                        </div>
-
-
-
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <h2 class="custom-text-primary" th:text="#{Administratives}"></h2>
-                    <div class="list-group">
-
-                        <a  th:each="person : ${Persons}" th:href="|/visitor/person/${person.ID}|" th:classappend="${person.ID == Person.ID}?'custom-badge-primary' : ''" class="list-group-item list-group-item-action" ><span th:text="${person.name}"></span> <span class="badge custom-badge-primary badge-pill float-right" th:text="${person.job.title}">1</span></a>
-
-                    </div>
-                    <div class="mt-5">
-                        <h4  th:text="${Person.job.title}" class="custom-text-primary"></h4>
-                        <p th:text="${Person.job.description}" class="text-justify "></p>
-                    </div>
-                </div>
+            <div class="row mt-5">
+                <a th:href="|/files/${GeneralInformation.structureImage}|">
+                    <img th:src="|/files/${GeneralInformation.structureImage}|">
+                </a>
             </div>
 
         <!-- / News -->
@@ -159,15 +130,6 @@
 
 
 </script>
-<script>
-    AOS.init({
-        easing: 'ease-in-out-sine'
-    });
-</script>
-<script>
-    $(function () {
-        $('[data-toggle="tooltip"]').tooltip()
-    })
-</script>
+
 </body>
 </html>

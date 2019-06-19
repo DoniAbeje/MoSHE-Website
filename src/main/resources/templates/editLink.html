@@ -2,7 +2,7 @@
 <html lang="en"  xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Edit Service</title>
+    <title>Edit Link</title>
     <link th:href="@{/vendor/bootstrap/css/bootstrap-simplex.css}" rel="stylesheet">
 <link rel="shortcut icon" href="/img/logo-resized.png">
 
@@ -41,56 +41,40 @@
 <!-- Container -->
 <div class="container d-flex justify-content-center custom-text-primary">
 
-    <!-- Add Service -->
+    <!-- Add Link -->
     <div class="col-lg-6  content-form shadow mt-5">
         <div class="form-area ">
-            <form role="form" th:action="@{/editService}" enctype="multipart/form-data" th:object="${Service}" th:method="post">
+            <form role="form" th:action="@{/editLink}" enctype="multipart/form-data" th:object="${Link}" th:method="post">
                 <br style="clear:both">
-                <h3 style="margin-bottom: 25px; text-align: center;" class="font-weight-bolder">Edit Service</h3>
+                <h3 style="margin-bottom: 25px; text-align: center;" class="font-weight-bolder">Edit Link</h3>
                 <div class="form-group">
                     <input type="text" class="form-control"  name="username" th:field = "*{title}" placeholder="Title" required>
                     <input type="text" hidden="hidden" class="form-control"  name="ID" th:field = "*{ID}" >
                     <span class="text-danger my-2" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
                 </div>
 
-                <div class="form-group">
-                    <fieldset class="form-group">
-
-                        <div class="form-check">
-                            <label class="form-check-label">
-                                <input th:attrappend="selected=${language == 'AMHARIC'}?selected" type="radio" class="form-check-input" name="language" th:field = "*{language}"
-                                       id="optionsRadios1" value="AMHARIC" >
-                                አማርኛ
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <label class="form-check-label">
-                                <input th:attrappend="selected=${language == 'ENGLISH'}?selected" type="radio" class="form-check-input" name="language" th:field = "*{language}"
-                                       id="optionsRadios2" value="ENGLISH">
-                                English
-                            </label>
-                        </div>
-                    </fieldset>
-                    <span class="text-danger my-2" th:if="${#fields.hasErrors('language')}" th:errors="*{language}"></span>
-                </div>
 
                 <div class="form-group">
                     <input type="url" class="form-control"  name="link" th:field = "*{link}" placeholder="Link" >
 
                 </div>
-                <div class="form-group">
-                        <textarea class="form-control" type="textarea" th:field = "*{description}" id="message" placeholder="Description"
-                                rows="7"></textarea>
-                    <span class="text-danger my-2" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
 
+                <div class="col-lg-4 my-2">
+                    <h7>Replace Image</h7>
+                    <input type="file"  class="form-control-file" name="file" placeholder="Image"  >
                 </div>
-
+                <div class="col-lg-4 my-2">
+                    <h4>Image</h4>
+                    <div class="card shadow-sm">
+                        <img th:src="|/files/*{image}|" class="card-img-top">
+                    </div>
+                </div>
                 <button type="submit" id="submit" name="submit"
                         class="btn custom-badge-primary pull-right my-2">Edit</button>
             </form>
         </div>
     </div>
-    <!-- / Add Service -->
+    <!-- / Add Link -->
 </div>
 <!-- / Container -->
 

@@ -26,12 +26,12 @@ melekt yilaku
 yerso email
 
 change password
-sort news by date****
-confirmation on delete
+sort news by date****#
+confirmation on delete#
 style services card
-administration strtuct page****
-admin highlight color to custom****
-job description dropdown ****
-sort admin list by date****
-list state ministers one admin per row portrait image refer pmo******
+administration strtuct page****#
+admin highlight color to custom****#
+sort admin list by date****#
+job description dropdown ****#
+list state ministers one admin per row portrait image refer pmo******#
 crucnch replay name change moshe admin*****

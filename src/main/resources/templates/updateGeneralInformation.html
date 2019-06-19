@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title>General Information</title>
     <link th:href="@{/vendor/bootstrap/css/bootstrap-simplex.css}" rel="stylesheet">
+<link rel="shortcut icon" href="/img/logo-resized.png">
+
     <link th:href="@{/vendor/bootstrap/css/quill.snow.css}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
@@ -185,6 +187,20 @@
 
                 <div  class="fom-group">
                     <img  class="m-2" th:src="|/files/*{officeImage}|" width="200" height="200">
+                </div>
+
+
+
+
+                <div class="form-group">
+                    <label >Administration Structure Image</label>
+                    <input type="file" class="form-control-file"   name="structureImagefile" aria-describedby="fileHelp">
+
+
+                </div>
+
+                <div  class="fom-group">
+                    <img  class="m-2" th:src="|/files/*{structureImage}|" width="200" height="200">
                 </div>
 
 

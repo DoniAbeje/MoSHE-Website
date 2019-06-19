@@ -80,6 +80,14 @@
             color: #fff;
             background-color: #056f8f;
         }
+        a:hover{
+            color: #056f8f;
+            text-decoration: none;
+        }
+        .persons-card:hover{
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+            transition: all .7s;
+        }
     </style>
 </head>
 <body>
@@ -88,43 +96,57 @@
 <!-- Page Content -->
 <div class="container py-5 my-5 d-flex justify-content-center ">
     <!--about us-->
-    <div class="col-lg-12">
+    <div class="col-lg-12 mt-5">
 
         <!-- News -->
 
             <div class="row">
-                <div class=" col-md-8 ">
-                    <div class="card mb-3 shadow-sm px-2">
-                        <div class="card-body">
-                            <div class="col-lg-12 d-flex justify-content-center ">
-                                <div class="col-lg-3 shadow-sm p-2">
-                                    <img data-action="zoom" class="card-img-top"  th:src="|/files/${Person.image}|">
+                <div class=" col-md-7 ">
+                    <!--<div th:each="person : ${PersonsByJob}" class="card mb-3 shadow-sm px-2">-->
+                        <!--<div class="card-body">-->
+                            <!--<div class="col-lg-12 d-flex justify-content-center ">-->
+                                <!--<div class="col-lg-3 shadow-sm p-2">-->
+                                    <!--<img data-action="zoom" class="card-img-top"  th:src="|/files/${person.image}|">-->
+                                <!--</div>-->
+                            <!--</div>-->
+
+                            <!--<h1 class="mt-5 custom-text-primary text-center" th:text="${person.name}"> </h1>-->
+
+
+
+                            <!--</div>-->
+                        <!---->
+                        <!--</div>-->
+                    <a th:each="person : ${PersonsByJob}" th:href="|/visitor/person/${person.getID()}|">
+                        <div  class="row shadow-sm my-3 persons-card"  >
+                            <div class="col-md-3 p-0 m-0" style="height:100%; ">
+                                <div class="">
+                                    <img data-action="zoom" th:src="|/files/${person.image}|" class="img-fluid" alt="">
                                 </div>
                             </div>
-
-                            <h1 class="mt-5 custom-text-primary text-center" th:text="${Person.name}"> </h1>
-
-                            <div class="ql-editor" th:utext="${Person.description}">
-
-                            </div>
+                            <div class="col-md-8" style="padding-left:30px;">
+                                <h3 style="padding:0; margin-top:15px; margin-bottom:0; font-size:25px;" th:text="${person.name}"></h3>
+                                <hr>
+                                <p th:text="${person.job.title}"></p>                </div>
                         </div>
 
+                    </a>
+
 
 
                     </div>
-                </div>
+
+                <div class="col-lg-1"></div>
                 <div class="col-lg-4">
-                    <h2 class="custom-text-primary" th:text="#{Administratives}"></h2>
+                    <h3 class="custom-text-primary" th:text="#{Administratives}"></h3>
                     <div class="list-group">
 
-                        <a  th:each="person : ${Persons}" th:href="|/visitor/person/${person.ID}|" th:classappend="${person.ID == Person.ID}?'custom-badge-primary' : ''" class="list-group-item list-group-item-action" ><span th:text="${person.name}"></span> <span class="badge custom-badge-primary badge-pill float-right" th:text="${person.job.title}">1</span></a>
+                        <a  th:each="person : ${Persons}" th:href="|/visitor/person/${person.ID}|"  class="list-group-item list-group-item-action" ><span th:text="${person.name}"></span> <span class="badge custom-badge-primary badge-pill float-right" th:text="${person.job.title}">1</span></a>
 
                     </div>
-                    <div class="mt-5">
-                        <h4  th:text="${Person.job.title}" class="custom-text-primary"></h4>
-                        <p th:text="${Person.job.description}" class="text-justify "></p>
-                    </div>
                 </div>
+                </div>
+
             </div>
 
         <!-- / News -->

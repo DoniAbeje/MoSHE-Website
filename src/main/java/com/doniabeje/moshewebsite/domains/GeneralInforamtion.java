@@ -28,6 +28,7 @@ public class GeneralInforamtion {
 
 
     private String officeImage;
+    private String structureImage;
 
 
 

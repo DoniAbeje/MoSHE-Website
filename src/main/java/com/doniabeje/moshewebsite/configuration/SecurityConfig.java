@@ -33,7 +33,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http.authorizeRequests()
-                .antMatchers("/addVacancy","/vacancies", "/editVacancy","/addTender","/tenders","/editTender","/addNews","/news","/editNews","/register","/services","/editService","/editService/**","/addService","/deleteNews/**","/deleteVacancy/**", "/documents","/addDocument","/editDocument/**","/deleteService/**","/deleteDocument/**","/updateGeneralInformation").hasAnyAuthority("ADMIN")
+                .antMatchers("/addVacancy","/vacancies", "/editVacancy/**","/addTender","/tenders","/editTender/**",
+                        "/addNews","/news","/editNews/**","/register","/services","/deleteService/**","/editService/**","/addService",
+                        "/links","/deleteLink/**","/editLink/**","/addLink",
+                        "/deleteNews/**","/deleteTender/**","/deleteVacancy/**", "/documents","/addDocument","/editDocument/**","/deleteService/**",
+                        "/deleteDocument/**","/updateGeneralInformation","/searchVacancies","/searchTenders","/searchNews","/searchDocuments"
+                       ,"/deleteDocumentType/**","/editDocumentType/**","/addDocumentType"
+                       ,"/deleteJob/**","/editJob/**","/addJob","/updateGeneralInformation","/suggestions","/deleteSuggestion/**"
+                       ,"/persons","/deletePerson/**","/editPerson/**","/addPerson").hasAnyAuthority("ADMIN")
                 .antMatchers("/visitor/**","/","/viewNews/**","/login").permitAll().and().formLogin()
                 .loginPage("/login")
                 .failureUrl("/login?error=true")

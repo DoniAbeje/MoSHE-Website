@@ -10,6 +10,8 @@
     <!-- Bootstrap core CSS -->
     <!-- <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> -->
     <link th:href="@{/vendor/bootstrap/css/bootstrap-simplex.css}" rel="stylesheet">
+<link rel="shortcut icon" href="/img/logo-resized.png">
+
     <link th:href="@{/vendor/bootstrap/css/slick-theme.css}" rel="stylesheet">
     <link th:href="@{/vendor/bootstrap/css/slick.css}" rel="stylesheet">
     <link th:href="@{/vendor/bootstrap/css/aos.css}" rel="stylesheet">
@@ -119,10 +121,24 @@
                             
                             <small class="card-subtitle text-muted" ><i class="far fa-calendar-alt"></i><span th:text="#{posted}"></span> <span th:text="${News.dateTime}"></span></small>
                         </div>
-                        <a href="#"> <img th:if="${!News.images.isEmpty()}" data-action="zoom" id="main-image" class="card-img-top"
-                                          th:src="|/files/${News.images.get(0).getName()}|"
-                                          alt="Card image"></a>
-                        <a href="#"> <img th:if="${News.images.isEmpty()}"  class="card-img-top"
+                        <a href="#">
+
+                            <iframe th:if="${News.isVideo()}" width="520" height="315"
+                                    th:src="${News.videoLink}">
+                            </iframe>
+
+                            <span th:if="${!News.isVideo()}">
+                                 <img th:if="${!News.images.isEmpty()}" data-action="zoom" id="main-image" class="card-img-top"
+                                      th:src="|/files/${News.images.get(0).getName()}|"
+                                      alt="Card image">
+
+                            </span>
+
+
+
+
+                        </a>
+                        <a href="#"> <img th:if="${News.images.isEmpty() and !News.isVideo()}"  class="card-img-top"
                                           src="/img/logo-land.jpg"
                                           alt="Card image"></a>
 
@@ -165,15 +181,29 @@
             <div th:each="news : ${recentNews}" class="col-lg-4 my-2">
                 <div class="card mb-3 shadow-sm h-100 hover-zoomin">
                     <a th:href="|/viewNews/${news.ID}|">
+
+
+                        <iframe th:if="${news.isVideo()}" width="320" height="200" class="w-100"
+                                th:src="${news.videoLink}">
+                        </iframe>
+
+                        <span th:if="${!news.isVideo()}">
+
                         <img th:if="${!news.images.isEmpty()}" style="height: 200px; width: 100%; display: block;"
                                                               th:src="|/files/${news.images.get(0).getName()}|" alt="Card image">
-
+                        </span>
 
 
                     </a>
-                    <a th:href="|/viewNews/${news.ID}|"> <img th:if="${news.images.isEmpty()}"
+                    <a th:href="|/viewNews/${news.ID}|">
+
+
+                        <img th:if="${news.images.isEmpty() and !news.isVideo()}"
                                                               src="/img/logo-land.jpg" class="card-img-top"
-                                                              alt="Card image"></a>
+                                                              alt="Card image">
+
+
+                    </a>
                     <div class="text-overlay" th:text="${news.dateTime}">
 
                     </div>
