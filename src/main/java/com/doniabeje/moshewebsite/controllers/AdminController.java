@@ -60,7 +60,7 @@ public class AdminController {
     private GeneralInformationRepository generalInformationRepository;
     private SuggestionRepository suggestionRepository;
     private LinkRepository linkRepository;
-    private String imagesFolder = "C:\\Users\\user\\Desktop\\MoSHE\\moshewebsite\\files\\";
+    private String imagesFolder = "/opt/tomcat/files/";
     private static final String DEFAULT_PAGE_SIZE = "10";
 
     @Autowired

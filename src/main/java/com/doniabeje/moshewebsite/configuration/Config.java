@@ -38,7 +38,7 @@ public class Config implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry
                 .addResourceHandler("/files/**")
-                .addResourceLocations("file:///C:/Users/user/Desktop/MoSHE/moshewebsite/files/");
+                .addResourceLocations("file:/opt/tomcat/files/");
     }
 
     @Override
