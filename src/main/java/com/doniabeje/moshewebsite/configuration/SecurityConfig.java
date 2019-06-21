@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
@@ -31,17 +32,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        http.sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.ALWAYS);
 
         http.authorizeRequests()
-                .antMatchers("/addVacancy","/vacancies", "/editVacancy/**","/addTender","/tenders","/editTender/**",
-                        "/addNews","/news","/editNews/**","/register","/services","/deleteService/**","/editService/**","/addService",
-                        "/links","/deleteLink/**","/editLink/**","/addLink",
-                        "/deleteNews/**","/deleteTender/**","/deleteVacancy/**", "/documents","/addDocument","/editDocument/**","/deleteService/**",
-                        "/deleteDocument/**","/updateGeneralInformation","/searchVacancies","/searchTenders","/searchNews","/searchDocuments"
-                       ,"/deleteDocumentType/**","/editDocumentType/**","/addDocumentType"
-                       ,"/deleteJob/**","/editJob/**","/addJob","/updateGeneralInformation","/suggestions","/deleteSuggestion/**"
-                       ,"/persons","/deletePerson/**","/editPerson/**","/addPerson").hasAnyAuthority("ADMIN")
-                .antMatchers("/visitor/**","/","/viewNews/**","/login").permitAll().and().formLogin()
+                .antMatchers("/addVacancy", "/vacancies", "/editVacancy/**", "/addTender", "/tenders", "/editTender/**",
+                        "/addNews", "/news", "/editNews/**", "/register", "/services", "/deleteService/**", "/editService/**", "/addService",
+                        "/links", "/deleteLink/**", "/editLink/**", "/addLink",
+                        "/deleteNews/**", "/deleteTender/**", "/deleteVacancy/**", "/documents", "/addDocument", "/editDocument/**", "/deleteService/**",
+                        "/deleteDocument/**", "/updateGeneralInformation", "/searchVacancies", "/searchTenders", "/searchNews", "/searchDocuments"
+                        , "/deleteDocumentType/**", "/editDocumentType/**", "/addDocumentType"
+                        , "/deleteJob/**", "/editJob/**", "/addJob", "/updateGeneralInformation", "/suggestions", "/deleteSuggestion/**"
+                        , "/persons", "/deletePerson/**", "/editPerson/**", "/addPerson").hasAnyAuthority("ADMIN")
+                .antMatchers("/visitor/**", "/", "/viewNews/**", "/login").permitAll().and().formLogin()
                 .loginPage("/login")
                 .failureUrl("/login?error=true")
                 .defaultSuccessUrl("/news").and()
@@ -55,7 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity webSecurity) throws Exception {
 
         webSecurity.ignoring()
-                .antMatchers("/resources/**","/files/**", "/static/**", "/css/**", "/js/**", "/img/**", "/fonts/**");
+                .antMatchers("/resources/**", "/files/**", "/static/**", "/css/**", "/js/**", "/img/**", "/fonts/**");
 
     }
 

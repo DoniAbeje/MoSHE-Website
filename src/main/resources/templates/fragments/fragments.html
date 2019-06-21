@@ -27,6 +27,19 @@
                 <li class="nav-item">
                     <a class="nav-link text-dark" href="/visitor/aboutUs" th:text="#{nav.aboutus}"></a>
                 </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link  dropdown-toggle text-dark" href="/visitor/structure"  th:text="#{Administratives}"
+                       id="navbarDropdown" role="button"  aria-haspopup="true"
+                       aria-expanded="false" >
+
+                    </a>
+                    <div class="dropdown-menu " aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item py-1 " th:each="job : ${NavJobs}"  th:href="|/visitor/adminByJob/${job.getID()}|" ><h7 th:text="${job.title}"></h7></a>
+
+                    </div>
+                </li>
+
                 <li class="nav-item">
                     <a class="nav-link text-dark" href="/visitor/newsList" th:text="#{nav.News}">News</a>
                 </li>
@@ -44,17 +57,7 @@
                     </div>
                 </li>
 
-                <li class="nav-item dropdown">
-                    <a class="nav-link  dropdown-toggle text-dark" href="/visitor/structure"  th:text="#{Administratives}"
-                       id="navbarDropdown" role="button"  aria-haspopup="true"
-                       aria-expanded="false" >
 
-                    </a>
-                    <div class="dropdown-menu " aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item py-1 " th:each="job : ${NavJobs}"  th:href="|/visitor/adminByJob/${job.getID()}|" ><h7 th:text="${job.title}"></h7></a>
-
-                    </div>
-                </li>
 
                 <li class="nav-item">
                     <a class="nav-link text-dark" href="/visitor/tenders" th:text="#{nav.Tenders}">Tenders</a>
@@ -75,9 +78,7 @@
                     </div>
                 </li>
 
-                <li class="nav-item">
-                    <a class="nav-link text-dark" href="/visitor/links" th:text="#{nav.Links}">News</a>
-                </li>
+
                 <li class="nav-item dropdown">
                     <a class="nav-link  dropdown-toggle" href="#"
                        id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
@@ -158,22 +159,18 @@
             <div class="col-md-3 mx-auto">
 
                 <!-- Links -->
-                <h5 class="font-weight-bold text-uppercase mt-3 mb-4 text-left"><i class="fas fa-info"> </i> <span th:text="#{social-network}"></span>
+                <h5 class="font-weight-bold text-uppercase mt-3 mb-4 text-left"><i class="fa fa-link"> </i> <span th:text="#{nav.Links}"></span>
                 </h5>
 
                 <ul class="text-left list-unstyled">
-                    <li class="my-2">
-                        <a href="https://www.facebook.com/SHE.Ethio/"><i class="fab fa-facebook-square"> </i> <span th:text="#{Facebook}"></span> </a>
+
+                    <li class="my-2" th:each="link : ${FooterLinks}">
+                        <a th:href="${link.link}" class="text-white" th:text="${link.title}"></a>
                     </li>
-                    <li class="my-2">
-                        <a href="https://twitter.com/she_ethiopia"><i class="fab fa-twitter-square"> </i>  <span th:text="#{Twitter}"></span></a>
+                    <li class="my-2" >
+                        <a href="/visitor/links" class="text-white" th:text="#{viewalllinks}"></a>
                     </li>
-                    <!--<li class="my-2">-->
-                        <!--<a href="#!"><i class="fab fa-instagram"> </i>  <span th:text="#{Instagram}"></span></a>-->
-                    <!--</li>-->
-                    <!--<li class="my-2">-->
-                        <!--<a href="#!"><i class="fab fa-linkedin"> </i>  <span th:text="#{Linkedin}"></span></a>-->
-                    <!--</li>-->
+
                 </ul>
 
             </div>
@@ -196,6 +193,13 @@
 
                     <li class="my-2">
                         <span ><i class="fas fa-at"> </i> 	moshe@ethernet.edu.et</span>
+                    </li>
+
+                    <li class="my-2">
+                        <a href="https://www.facebook.com/SHE.Ethio/"><i class="fab fa-facebook-square"> </i> <span th:text="#{Facebook}"></span> </a>
+                    </li>
+                    <li class="my-2">
+                        <a href="https://twitter.com/she_ethiopia"><i class="fab fa-twitter-square"> </i>  <span th:text="#{Twitter}"></span></a>
                     </li>
                 </ul>
 

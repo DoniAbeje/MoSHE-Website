@@ -98,6 +98,11 @@ public class VisitorController {
             return serviceService.findAllByLanguage(News.Language.ENGLISH, pageRequest);
         }
     }
+    @ModelAttribute("FooterLinks")
+    public Page<Link>  FooterLinks(){
+        PageRequest pageRequest = AdminController.getPageRequest(0, 3, "title", 1);
+        return  linkRepository.findAll(pageRequest);
+    }
 
 
     @ModelAttribute("NavDocumentTypes")
@@ -117,7 +122,7 @@ public class VisitorController {
     @GetMapping("/")
     public String index(Model model, Locale locale){
         PageRequest pageRequest = PageRequest.of(0,4, Sort.by("dateTime").descending());
-        PageRequest servicePageRequest = AdminController.getPageRequest(0, 1000, "title", 1);
+        PageRequest servicePageRequest = AdminController.getPageRequest(0, 3, "title", 1);
         Page pages;
 
         if (locale.getLanguage() .equals("am")){
@@ -429,7 +434,7 @@ public class VisitorController {
 
     }
 
-    @PostMapping("visitor/addSuggestion")
+    @GetMapping("visitor/addSuggestion")
     public String addSuggestion(@RequestParam("email") String email, @RequestParam("content") String content, @RequestParam("phone") String phone, @RequestParam("name") String name){
         Suggestion suggestion = new Suggestion();
         suggestion.setContent(content);

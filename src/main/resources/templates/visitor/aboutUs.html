@@ -105,9 +105,9 @@
 
                 <div class="col-lg-4">
                     <h2 class="custom-text-primary" th:text="#{Contact-Us}">Suggestion</h2>
-                      <form role="form" th:action="@{/visitor/addSuggestion}"  th:method="post">
+                    <form id="main-form"   th:method="get"  action="/visitor/addSuggestion"  >
 
-                          <div class="form-group">
+                    <div class="form-group">
                               <input type="text" class="form-control"  name="name"  th:placeholder="#{name}" >
                           </div>
 
