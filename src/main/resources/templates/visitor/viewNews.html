@@ -12,6 +12,9 @@
     <link th:href="@{/vendor/bootstrap/css/bootstrap-simplex.css}" rel="stylesheet">
 <link rel="shortcut icon" href="/img/logo-resized.png">
 
+
+    <link th:href="@{/vendor/bootstrap/css/quill.snow.css}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" />
     <link th:href="@{/vendor/bootstrap/css/slick-theme.css}" rel="stylesheet">
     <link th:href="@{/vendor/bootstrap/css/slick.css}" rel="stylesheet">
     <link th:href="@{/vendor/bootstrap/css/aos.css}" rel="stylesheet">
@@ -143,9 +146,9 @@
                                           alt="Card image"></a>
 
                         <div class="card-body">
-                            <p class="card-text text-justify" th:utext="${News.description}">
+                            <div class="ql-editor" th:utext="${News.content}">
 
-                            </p>
+                            </div>
                         </div>
                         <div class="card-footer" th:if="${News.document != null}">
                             <a th:href="|/files/${News.document.name}|" th:text="#{downloadfile}"></a>

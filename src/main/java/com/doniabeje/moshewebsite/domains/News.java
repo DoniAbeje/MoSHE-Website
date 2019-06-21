@@ -27,6 +27,8 @@ public class News {
     @Column(length = 65535, columnDefinition = "text")
     private String description;
 
+
+
     @Temporal(TemporalType.DATE)
     private Date dateTime = new Date();
 
