@@ -52,7 +52,7 @@
 
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item py-1 text-dark" th:each="service : ${NavServices}"  th:href="${service.link}" ><h7 th:text="${service.title}"></h7></a>
+                        <a class="dropdown-item py-1 " th:each="service : ${NavServices}"  th:href="${service.link}" ><h7 th:text="${service.title}"></h7></a>
 
                     </div>
                 </li>
@@ -80,7 +80,7 @@
 
 
                 <li class="nav-item dropdown">
-                    <a class="nav-link  dropdown-toggle" href="#"
+                    <a class="nav-link  dropdown-toggle " style="color: #056f8f" href="#"
                        id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
                        aria-expanded="false" >
                         <span th:if="__${#locale}__== 'am' ">| አማ</span>

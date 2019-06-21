@@ -142,7 +142,7 @@
     </div>
     <div class="row">
         <div class="col-lg-6">
-            <a href="/visitor/vacancies/archives" th:classappend="${ isArchives }?'btn-primary': 'btn-secondary' " class="btn" ><i class="fa fa-archive" ></i> <span th:text="#{archives}"></span> </a>
+            <a href="/visitor/vacancies/archives" th:classappend="${ isArchives }?'bg-primary text-white': 'btn-secondary' " class="btn" ><i class="fa fa-archive" ></i> <span th:text="#{archives}"></span> </a>
             <!--<a href="/visitor/vacancies/archives" class="btn btn-secondary"><i class="fa fa-clock"></i> <span th:text="#{recent}"></span> </a>-->
         </div>
 
@@ -154,7 +154,7 @@
             <a th:href="|/visitor/viewVacancy/${vacancy.ID}|"><h4 class="custom-text-primary" th:text="${vacancy.title}">Bidding One</h4></a>
             <h6 class="card-subtitle text-muted my-3" ><i class="far fa-calendar-alt"> Deadline</i> <span th:text="${vacancy.deadline}"></span></h6>
             <p class="text-dark text-justify" th:text="${T(com.doniabeje.moshewebsite.configuration.Utils).minify(vacancy.description, 300)}">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium veniam exercitationem expedita laborum at voluptate. Labore, voluptates totam at aut nemo deserunt rem magni pariatur quos perspiciatis atque eveniet unde.</p>
-             <a class="btn border-info" th:href="|/visitor/viewVacancy/${vacancy.ID}|" th:text="#{Read-More}">Read More</a>
+             <a class="btn btn-outline-primary" th:href="|/visitor/viewVacancy/${vacancy.ID}|" th:text="#{Read-More}">Read More</a>
         </div>
     </div>
     <!-- /.row -->

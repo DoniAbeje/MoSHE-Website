@@ -138,7 +138,7 @@
                 <div class="carousel-caption d-none d-md-block">
                     <span th:if="${News.size() > 0 }">
                         <h1 class="font-weight-light text-shadow" th:text="${News.get(0).title }">Chairperson of the State Minister of Science and Higher Education, Afewerk Kassa, said the expansion of successful women experiences is expected.</h1>
-                    <a  class="btn bg-white text-dark" th:href="|/viewNews/${News.get(0).ID}|" th:text="#{Read-More}" >Learn More</a>
+                    <a  class="btn bg-white  text-dark" th:href="|/viewNews/${News.get(0).ID}|" th:text="#{Read-More}" >Learn More</a>
                     </span>
                 </div>
             </div>
@@ -237,7 +237,7 @@
                             </p>
                         </div>
                         <div class="card-footer bg-white ">
-                            <a th:href="|/viewNews/${news.ID}|" class="btn  float-left border-info my-2" th:text="#{Read-More}">Read More</a>
+                            <a th:href="|/viewNews/${news.ID}|" class="btn  float-left btn-outline-primary my-2" th:text="#{Read-More}">Read More</a>
                         </div>
                     </div>
                 </div>
@@ -268,7 +268,7 @@
                 </div>
                 <!-- / service 1 -->
                 <div class="col-lg-12">
-                    <a href="/visitor/services" class="btn btn-sm btn-outline-info" th:text="#{viewallservices}">View all Services</a>
+                    <a href="/visitor/services" class="btn btn-sm btn-outline-primary" th:text="#{viewallservices}">View all Services</a>
                 </div>
 
             </div>

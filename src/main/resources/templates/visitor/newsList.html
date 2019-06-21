@@ -91,7 +91,7 @@
             <h5 class="custom-text-primary" th:text="${news.title}">Bidding One</h5>
             <p class="card-subtitle text-muted my-3" ><i class="far fa-calendar-alt" th:text="#{posted}"> Published</i> <span th:text="${news.dateTime}"></span></p>
             <p class="text-dark my-2" th:text="${T(com.doniabeje.moshewebsite.configuration.Utils).minify(news.description, 300)}">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium veniam exercitationem expedita laborum at voluptate. Labore, voluptates totam at aut nemo deserunt rem magni pariatur quos perspiciatis atque eveniet unde.</p>
-            <a class="btn border-info" th:href="|/viewNews/${news.ID}|" th:text="#{Read-More}">Read More</a>
+            <a class="btn btn-outline-primary" th:href="|/viewNews/${news.ID}|" th:text="#{Read-More}">Read More</a>
         </div>
 
         <div class="col-md-5">
