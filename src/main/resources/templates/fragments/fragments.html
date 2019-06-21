@@ -167,8 +167,8 @@
                     <li class="my-2" th:each="link : ${FooterLinks}">
                         <a th:href="${link.link}" class="text-white" th:text="${link.title}"></a>
                     </li>
-                    <li class="my-2" >
-                        <a href="/visitor/links" class="text-white" th:text="#{viewalllinks}"></a>
+                    <li class="my-4" >
+                        <a href="/visitor/links" class="text-white border p-2" style="border-width: 2px !important;" th:text="#{viewalllinks}"></a>
                     </li>
 
                 </ul>

@@ -104,7 +104,7 @@
                 </div>
 
                 <div class="col-lg-4">
-                    <h2 class="custom-text-primary" th:text="#{Contact-Us}">Suggestion</h2>
+                    <h2 class="custom-text-primary" th:text="#{your-comment}">Suggestion</h2>
                     <form id="main-form"   th:method="get"  action="/visitor/addSuggestion"  >
 
                     <div class="form-group">
@@ -120,7 +120,7 @@
                           </div>
 
                          <div class="form-group">
-                            <textarea class="form-control" type="textarea" name="content"  th:placeholder="#{message}" rows="7" ></textarea>
+                            <textarea class="form-control" type="textarea" name="content"  th:placeholder="#{comment}" rows="7" ></textarea>
                         </div>
 
                         <button type="submit" class="btn custom-badge-primary pull-right my-2" th:text="#{submit}">Submit</button>
