@@ -604,6 +604,7 @@ public class AdminController {
         DocumentType documentType = new DocumentType();
         documentType.setTitle(title);
         documentType.setLanguage(language);
+        documentType.setDateTime(new Date());
         documentTypeService.save(documentType);
         return "redirect:/documents";
     }
@@ -617,6 +618,7 @@ public class AdminController {
             DocumentType documentType = optionalDocumentType.get();
             documentType.setTitle(title);
             documentType.setLanguage(language);
+            documentType.setDateTime(new Date());
             documentTypeService.save(documentType);
         }
         return "redirect:/documents";

@@ -107,7 +107,7 @@ public class VisitorController {
 
     @ModelAttribute("NavDocumentTypes")
     public Page<DocumentType>  NavDocumentTypes(Locale locale){
-        PageRequest pageRequest = AdminController.getPageRequest(0, 100, "title", 1);
+        PageRequest pageRequest = AdminController.getPageRequest(0, 100, "dateTime", 1);
 
         if (locale.getLanguage() .equals("am")) {
             return  documentTypeService.findAllByLanguage(News.Language.AMHARIC, pageRequest);
