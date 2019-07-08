@@ -163,8 +163,8 @@
             <h3 class="my-3 custom-text-primary" th:text="#{Pictures}"> Pictures</h3>
             <div class="row">
                 <!-- Picture 1 -->
-                <div th:each="image, index : ${News.images}" class="col-lg-12 py-2" >
-                    <div th:if="${index != 0}" class="card shadow-sm">
+                <div th:each="image, iter : ${News.images}" class="col-lg-12 py-2" >
+                    <div th:if="${iter.index != 0}" class="card shadow-sm">
                         <img data-action="zoom" th:if="${!News.images.isEmpty()}" th:id="${image.getID()}" class="card-img-top"
                              th:src="|/files/${image.getName()}|" alt="">
 
