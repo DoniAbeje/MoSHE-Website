@@ -133,7 +133,7 @@
             <div class="col-lg-6 my-2" th:each="document : ${Documents}">
 
                 <div class="card  border-0 bg-light text-dark my-3 h-100" >
-                    <div class="card-header font-weight-bold" ><a class="text-white" th:href="|/files/${document.name}|"  th:text="${document.title}"> Applicant Allocation System</a></div>
+                    <div class="card-header font-weight-bold" ><a class="custom-text-primary" th:href="|/files/${document.name}|"  th:text="${document.title}"> Applicant Allocation System</a></div>
                     <div class="card-body shadow-sm text-dark bg-white text-justify">
 
                         <p class="card-text"  th:text="${document.description}">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
