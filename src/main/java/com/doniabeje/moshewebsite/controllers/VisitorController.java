@@ -99,9 +99,15 @@ public class VisitorController {
         }
     }
     @ModelAttribute("FooterLinks")
-    public Page<Link>  FooterLinks(){
+    public Page<Link>  FooterLinks(Locale locale){
         PageRequest pageRequest = AdminController.getPageRequest(0, 3, "title", 1);
-        return  linkRepository.findAll(pageRequest);
+
+        if (locale.getLanguage() .equals("am")) {
+            return linkRepository.findAllByLanguage(News.Language.AMHARIC, pageRequest);
+        }
+        else  {
+            return linkRepository.findAllByLanguage(News.Language.ENGLISH, pageRequest);
+        }
     }
 
 
@@ -409,8 +415,14 @@ public class VisitorController {
     @GetMapping("/visitor/links")
     public String links(Model model, Locale locale){
 
-        model.addAttribute("Links",linkRepository.findAll());
+        PageRequest pageRequest = AdminController.getPageRequest(0, 1000, "title", 1);
 
+        if (locale.getLanguage() .equals("am")) {
+            model.addAttribute("Links",linkRepository.findAllByLanguage(News.Language.AMHARIC, pageRequest));
+        }
+        else  {
+            model.addAttribute("Links",linkRepository.findAllByLanguage(News.Language.ENGLISH, pageRequest));
+        }
 
         return "/visitor/links";
     }

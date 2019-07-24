@@ -8,5 +8,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 public interface LinkRepository extends PagingAndSortingRepository<Link, Long> {
-    Iterable<Service> findByTitleContains(String title);
+    Iterable<Link> findByTitleContains(String title);
+    Page<Link> findAllByLanguage(News.Language language, Pageable pageable);
 }

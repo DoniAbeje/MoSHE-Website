@@ -56,6 +56,27 @@
                     <input type="url" class="form-control"  name="link" th:field = "*{link}" placeholder="Link" >
 
                 </div>
+
+                <div class="form-group">
+                    <fieldset class="form-group">
+
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input th:attrappend="selected=${language == 'AMHARIC'}?selected" type="radio" class="form-check-input" name="language" th:field = "*{language}"
+                                       id="optionsRadios1" value="AMHARIC" >
+                                አማርኛ
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input th:attrappend="selected=${language == 'ENGLISH'}?selected" type="radio" class="form-check-input" name="language" th:field = "*{language}"
+                                       id="optionsRadios2" value="ENGLISH">
+                                English
+                            </label>
+                        </div>
+                    </fieldset>
+                    <span class="text-danger my-2" th:if="${#fields.hasErrors('language')}" th:errors="*{language}"></span>
+                </div>
                 <div class="col-lg-4 my-2">
                     <h4>Image</h4>
                     <input type="file"  class="form-control-file" name="file" placeholder="Image"  >

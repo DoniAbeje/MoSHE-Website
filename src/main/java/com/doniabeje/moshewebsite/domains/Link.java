@@ -21,5 +21,9 @@ public class Link {
 
     private String image;
 
+    @NotNull(message = "Language can not be blank")
+    private News.Language language = News.Language.ENGLISH;
+
+
 
 }
