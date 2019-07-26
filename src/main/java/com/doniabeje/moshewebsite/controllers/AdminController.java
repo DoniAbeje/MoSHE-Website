@@ -802,7 +802,7 @@ public class AdminController {
 
     @GetMapping("/links")
     public String links(Model model, @RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "size", defaultValue = DEFAULT_PAGE_SIZE) int size, @RequestParam(name = "sort", defaultValue = "title") String sort, @RequestParam(name = "ascending", defaultValue = "1") int ascending) {
-        PageRequest pageRequest = getPageRequest(page, size, sort, ascending);
+        PageRequest pageRequest = getPageRequest(page, 1000, sort, ascending);
         Page pages = linkRepository.findAll(pageRequest);
 
         preparePageModel(model, page, size, sort, pages, ascending, "Links");
