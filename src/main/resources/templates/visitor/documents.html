@@ -127,6 +127,7 @@
                    <div>
                        <h1 class="text-center custom-text-primary mt-3"><i class="fa fa-book"></i></h1>
                        <h2 class="mb-3 custom-text-primary text-center"> <span th:text="#{nav.Documents}" >Services</span></h2>
+                       <h4 th:if="${DocumentType != null}" class="text-muted" th:text="${DocumentType.description}"> </h4>
                    </div>
                 </div>
             </div>

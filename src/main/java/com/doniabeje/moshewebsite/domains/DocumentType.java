@@ -21,6 +21,8 @@ public class DocumentType {
     @NotEmpty(message = "Document Title can not be Empty")
     private String title;
 
+    private String description;
+
     @Temporal(TemporalType.DATE)
     private Date dateTime = new Date();
 }

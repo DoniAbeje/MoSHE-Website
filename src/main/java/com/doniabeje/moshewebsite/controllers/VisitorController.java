@@ -272,6 +272,7 @@ public class VisitorController {
     public String documents(Model model, @RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "size", defaultValue = DEFAULT_PAGE_SIZE) int size, @RequestParam(name = "sort", defaultValue = "dateTime") String sort, @RequestParam(name = "ascending", defaultValue = "1") int ascending, Locale locale){
         PageRequest pageRequest = AdminController.getPageRequest(page, size, sort, ascending);
         Page pages;
+        model.addAttribute("DocumentType", null);
 
         if (locale.getLanguage() .equals("am")) {
             pages = documentService.findAllByLanguage(News.Language.AMHARIC, pageRequest);

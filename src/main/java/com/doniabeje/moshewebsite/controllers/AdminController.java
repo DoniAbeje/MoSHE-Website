@@ -600,9 +600,10 @@ public class AdminController {
     }
 
     @PostMapping("/addDocumentType")
-    public String addDocumentType(@RequestParam("title") String title, @RequestParam("language") News.Language language) {
+    public String addDocumentType(@RequestParam("title") String title,@RequestParam("description") String description, @RequestParam("language") News.Language language) {
         DocumentType documentType = new DocumentType();
         documentType.setTitle(title);
+        documentType.setDescription(description);
         documentType.setLanguage(language);
         documentType.setDateTime(new Date());
         documentTypeService.save(documentType);
@@ -611,12 +612,13 @@ public class AdminController {
 
     @PostMapping("/editDocumentType")
 
-    public String editDocumentType(@RequestParam("title") String title, @RequestParam("id") long id, @RequestParam("language") News.Language language) {
+    public String editDocumentType(@RequestParam("title") String title,@RequestParam("description") String description, @RequestParam("id") long id, @RequestParam("language") News.Language language) {
         Optional<DocumentType> optionalDocumentType = documentTypeService.findById(id);
 
         if (optionalDocumentType.isPresent()) {
             DocumentType documentType = optionalDocumentType.get();
             documentType.setTitle(title);
+            documentType.setDescription(description);
             documentType.setLanguage(language);
             documentType.setDateTime(new Date());
             documentTypeService.save(documentType);
