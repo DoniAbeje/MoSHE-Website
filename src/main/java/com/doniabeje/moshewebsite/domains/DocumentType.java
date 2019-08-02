@@ -21,6 +21,7 @@ public class DocumentType {
     @NotEmpty(message = "Document Title can not be Empty")
     private String title;
 
+    @Column(length = 65535, columnDefinition = "text")
     private String description;
 
     @Temporal(TemporalType.DATE)

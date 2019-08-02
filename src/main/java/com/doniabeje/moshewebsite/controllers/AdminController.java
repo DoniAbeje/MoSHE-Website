@@ -331,7 +331,7 @@ public class AdminController {
     }
 
     @PostMapping("/addNews")
-    public String addNews(@Valid @ModelAttribute("NewNews") News news, BindingResult bindingResult, @RequestParam("file1") MultipartFile file1, @RequestParam("file2") MultipartFile file2, @RequestParam("file3") MultipartFile file3) {
+    public String addNews(@Valid @ModelAttribute("NewNews") News news, BindingResult bindingResult, @RequestParam("file1") MultipartFile file1, @RequestParam("file2") MultipartFile file2, @RequestParam("file3") MultipartFile file3, @RequestParam("file4") MultipartFile file4, @RequestParam("file5") MultipartFile file5) {
         if (bindingResult.hasErrors()) {
             return "addNews";
         }
@@ -348,6 +348,16 @@ public class AdminController {
         }
         if (!file3.isEmpty()) {
             newsImage = saveNewsImage(file3, false);
+            newsImages.add(newsImage);
+
+        }
+        if (!file4.isEmpty()) {
+            newsImage = saveNewsImage(file4, false);
+            newsImages.add(newsImage);
+
+        }
+        if (!file5.isEmpty()) {
+            newsImage = saveNewsImage(file5, false);
             newsImages.add(newsImage);
 
         }
@@ -385,7 +395,7 @@ public class AdminController {
     }
 
     @PostMapping("/editNews")
-    public String editNewsPost(@Valid @ModelAttribute("News") News news, BindingResult bindingResult, @RequestParam("file1") MultipartFile file1, @RequestParam("file2") MultipartFile file2, @RequestParam("file3") MultipartFile file3) {
+    public String editNewsPost(@Valid @ModelAttribute("News") News news, BindingResult bindingResult, @RequestParam("file1") MultipartFile file1, @RequestParam("file2") MultipartFile file2, @RequestParam("file3") MultipartFile file3, @RequestParam("file4") MultipartFile file4, @RequestParam("file5") MultipartFile file5) {
         if (bindingResult.hasErrors()) {
             return "editNews";
         }
@@ -408,6 +418,18 @@ public class AdminController {
         }
         if (!file3.isEmpty()) {
             newsImage = saveNewsImage(file3, false);
+            newsImages.add(newsImage);
+            news.setImages(newsImages);
+
+        }
+        if (!file4.isEmpty()) {
+            newsImage = saveNewsImage(file4, false);
+            newsImages.add(newsImage);
+            news.setImages(newsImages);
+
+        }
+        if (!file5.isEmpty()) {
+            newsImage = saveNewsImage(file5, false);
             newsImages.add(newsImage);
             news.setImages(newsImages);
 
