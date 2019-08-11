@@ -24,6 +24,12 @@ public class DocumentType {
     @Column(length = 65535, columnDefinition = "text")
     private String description;
 
+
+    @Column(length = 65535, columnDefinition = "text")
+    private String content;
+
+    private String image;
+
     @Temporal(TemporalType.DATE)
     private Date dateTime = new Date();
 }

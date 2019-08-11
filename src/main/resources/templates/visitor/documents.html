@@ -127,7 +127,9 @@
                    <div>
                        <h1 class="text-center custom-text-primary mt-3"><i class="fa fa-book"></i></h1>
                        <h2 class="mb-3 custom-text-primary text-center"> <span th:text="#{nav.Documents}" >Services</span></h2>
-                       <h4 th:if="${DocumentType != null}" class="text-muted" th:text="${DocumentType.description}"> </h4>
+                       <button th:if="${DocumentType != null && DocumentType.getContent() != null && !DocumentType.getContent().isEmpty() }" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal" th:text="|${DocumentType.title} - #{description} |" >
+
+                       </button>
                    </div>
                 </div>
             </div>
@@ -190,9 +192,29 @@
     </div>
     <!--/Pagination-->
 
-
+    <!-- Modal -->
+    <div th:if="${DocumentType != null}" class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel" th:text="${DocumentType.title}">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p  class="text-justify" th:text="${DocumentType.content}"></p>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <!-- / Container -->
+
+
+
 <div th:replace="fragments/fragments :: footer"></div>
 <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
 <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>

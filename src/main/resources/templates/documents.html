@@ -127,7 +127,7 @@
                   <form role="form" th:action="@{/editDocumentType}"  th:method="post">
                       <input typpe="text" hidden="hidden"  name="id" th:value="${docType.ID}">
                       <td><input type="text" class="form-control" name="title" th:value="${docType.title}"></td>
-                      <td><input type="text" class="form-control" name="description" th:value="${docType.description}"></td>
+                      <td><input type="text" class="form-control" name="content" th:value="${docType.content}"></td>
                       <td><label><input th:type="radio" name="language"  th:checked="${docType.language.toString() == 'AMHARIC'}"  value="AMHARIC"> አማርኛ</label></td>
                       <td><label><input th:type="radio" name="language" th:checked="${docType.language.toString() == 'ENGLISH'}"  value="ENGLISH"> English</label></td>
                       <td><input type="submit" class="btn btn-sm btn-outline-info" value="Update"></td>
@@ -185,7 +185,7 @@
                     <input type="text" class="form-control"  name="title"  placeholder="Title" required>
 
                 </div><div class="form-group">
-                    <input type="text" class="form-control"  name="description"  placeholder="description" >
+                    <input type="text" class="form-control"  name="content"  placeholder="Content" >
 
                 </div>
                 <div class="form-group">
