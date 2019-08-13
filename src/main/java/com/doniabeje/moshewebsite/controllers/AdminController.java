@@ -622,19 +622,24 @@ public class AdminController {
     }
 
     @PostMapping("/addDocumentType")
-    public String addDocumentType(@RequestParam("title") String title,@RequestParam("content") String content, @RequestParam("language") News.Language language) {
-        DocumentType documentType = new DocumentType();
+    public String addDocumentType(@RequestParam("title") String title,@RequestParam("content") String content, @RequestParam("language") News.Language language, @RequestParam("file") MultipartFile file) {
+
+
+       DocumentType documentType = new DocumentType();
         documentType.setTitle(title);
         documentType.setContent(content);
         documentType.setLanguage(language);
         documentType.setDateTime(new Date());
+        if (!file.isEmpty()) {
+            documentType.setImage(uploadFile(file));
+        }
         documentTypeService.save(documentType);
         return "redirect:/documents";
     }
 
     @PostMapping("/editDocumentType")
 
-    public String editDocumentType(@RequestParam("title") String title,@RequestParam("content") String content, @RequestParam("id") long id, @RequestParam("language") News.Language language) {
+    public String editDocumentType(@RequestParam("title") String title,@RequestParam("content") String content, @RequestParam("id") long id, @RequestParam("language") News.Language language, @RequestParam("file") MultipartFile file) {
         Optional<DocumentType> optionalDocumentType = documentTypeService.findById(id);
 
         if (optionalDocumentType.isPresent()) {
@@ -643,6 +648,9 @@ public class AdminController {
             documentType.setContent(content);
             documentType.setLanguage(language);
             documentType.setDateTime(new Date());
+            if (!file.isEmpty()) {
+                documentType.setImage(uploadFile(file));
+            }
             documentTypeService.save(documentType);
         }
         return "redirect:/documents";
