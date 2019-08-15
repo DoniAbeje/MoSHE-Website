@@ -124,7 +124,7 @@
             <!-- service 1 -->
             <div th:if="${DocumentType.image != null }" class="col-lg-12 d-flex justify-content-center ">
                 <div class="col-lg-3 shadow-sm p-2">
-                    <img data-action="zoom" class="card-img-top img-fluid" style="width: 100%; max-height: 300px;"   th:src="|/files/${DocumentType.image}|">
+                    <img data-action="zoom" class="card-img-top img-fluid" style="width: 100%; max-height: 300px;"  data-toggle="modal" data-target="#exampleModal"   th:src="|/files/${DocumentType.image}|">
                 </div>
             </div>
             <div class="col-lg-12">
