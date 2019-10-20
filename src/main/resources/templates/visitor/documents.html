@@ -109,7 +109,7 @@
     </div>
     <div class="container" >
         <!-- Page Features -->
-        <div th:each="document : ${Documents}" class="row my-4">
+<!--         <div th:each="document : ${Documents}" class="row my-4">
             <div class="col-md-7 ">
                 <h3 class="custom-text-primary" ><i class="fa fa-file-alt"></i> <span th:text="${document.title}"></span> </h3>
                 <h6 class="card-subtitle text-muted my-3" ><i class="far fa-calendar-alt"> Published</i> <span th:text="${document.dateTime}"></span></h6>
@@ -117,7 +117,7 @@
                 <p th:text="${T(com.doniabeje.moshewebsite.configuration.Utils).minify(document.description, 300)}">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium veniam exercitationem expedita laborum at voluptate. Labore, voluptates totam at aut nemo deserunt rem magni pariatur quos perspiciatis atque eveniet unde.</p>
                 <a class="btn border-info btn-sm" th:href="|/files/${document.name}|" th:text="#{Download}">Read More</a>
             </div>
-        </div>
+        </div> -->
 
 
         <div class="row">
