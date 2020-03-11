@@ -910,7 +910,7 @@ public class AdminController {
         }
 
         user.setToken(UUID.randomUUID().toString());
-//        userService.saveUser(user);
+        userService.saveUser(user);
         final String baseUrl = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
         String link = baseUrl + "/reset-password" + "?username=" + user.getUsername() + "&token=" + user.getToken();
         sendPasswordResetEmail(user, link);
