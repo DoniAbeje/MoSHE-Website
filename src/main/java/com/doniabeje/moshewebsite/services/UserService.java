@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 public interface UserService extends UserDetailsService {
 
     User findUserByUsername(String username);
+    User findUserByEmail(String email);
     void saveUser(User user);
 
 }
@@ -37,6 +38,12 @@ class UserServiceImpl implements UserService{
         return userRepository.findByUsername(username);
 
     }
+
+    @Override
+    public User findUserByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
 
     @Override
     public void saveUser(User user) {

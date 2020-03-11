@@ -6,11 +6,12 @@ import com.doniabeje.moshewebsite.repositories.GeneralInformationRepository;
 import com.doniabeje.moshewebsite.repositories.LinkRepository;
 import com.doniabeje.moshewebsite.repositories.SuggestionRepository;
 import com.doniabeje.moshewebsite.services.*;
-import org.attoparser.dom.DocType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -18,15 +19,15 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import javax.print.Doc;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -60,6 +61,7 @@ public class AdminController {
     private GeneralInformationRepository generalInformationRepository;
     private SuggestionRepository suggestionRepository;
     private LinkRepository linkRepository;
+    private JavaMailSender mailSender;
     private String imagesFolder = "/opt/tomcat/files/";
     private static final String DEFAULT_PAGE_SIZE = "10";
 
@@ -68,7 +70,7 @@ public class AdminController {
                            VacancyService vacancyService, TenderService tenderService, NewsImageService newsImageService,
                            NewsService newsService, DocumentService documentService, ServiceService serviceService, DocumentTypeService documentTypeService,
                            JobService jobService, PersonService personService, GeneralInformationRepository generalInformationRepository
-                            ,SuggestionRepository suggestionRepository, LinkRepository linkRepository) {
+                            ,SuggestionRepository suggestionRepository, LinkRepository linkRepository, JavaMailSender mailSender) {
 
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
@@ -85,8 +87,20 @@ public class AdminController {
         this.generalInformationRepository = generalInformationRepository;
         this.suggestionRepository = suggestionRepository;
         this.linkRepository = linkRepository;
+        this.mailSender = mailSender;
     }
 
+
+
+    public void sendPasswordResetEmail(User user, String link){
+        SimpleMailMessage msg = new SimpleMailMessage();
+        msg.setTo(user.getEmail());
+
+        msg.setSubject("Password Reset");
+        msg.setText("Here is your password reset link " + link);
+
+        mailSender.send(msg);
+    }
 
     @GetMapping("/register")
     public String register(Model model) {
@@ -132,6 +146,7 @@ public class AdminController {
         User updatedUser = userService.findUserByUsername(user.getUsername());
         updatedUser.setPassword(passwordEncoder.encode(user.getPassword()));
         updatedUser.setFullName(user.getFullName());
+        updatedUser.setEmail(user.getEmail());
         userService.saveUser(updatedUser);
         return "redirect:/editUser?success=true";
     }
@@ -880,13 +895,55 @@ public class AdminController {
     }
 
 
+    @GetMapping("/reset-password-request")
+    public String passwordResetRequest(){
+        return "passwordResetRequest";
+    }
 
+    @PostMapping("reset-password-request")
+    public String passwordResetRequestPost(@RequestParam("email") String email, Model model, HttpServletRequest request){
+        User user = userService.findUserByEmail(email);
 
+        if (user == null){
+            model.addAttribute("error", "User with the given email is not found!");
+            return "passwordResetRequest";
+        }
 
+        user.setToken(UUID.randomUUID().toString());
+        userService.saveUser(user);
+        final String baseUrl = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
+        String link = baseUrl + "/reset-password" + "?username=" + user.getUsername() + "&token=" + user.getToken();
+        sendPasswordResetEmail(user, link);
+        model.addAttribute("success", "Password reset link is sent to " + email + ". Check your inbox");
+        return "passwordResetRequest";
+    }
 
+    @GetMapping("/reset-password")
+    public String resetPassword(@RequestParam("username") String username, @RequestParam("token") String token, Model model){
+        User user = userService.findUserByUsername(username);
 
+        if(user != null){
+            if (user.getToken().equals(token)){
+                model.addAttribute("username", username);
+                model.addAttribute("token", token);
+            }
+        }
+        return "resetPassword";
+    }
 
+    @PostMapping("/reset-password")
+    public String resetPasswordPost(@RequestParam("username") String username, @RequestParam("token") String token, @RequestParam("password") String password){
+        User user = userService.findUserByUsername(username);
 
+        if(user != null){
+            if (user.getToken().equals(token)){
+                user.setPassword(passwordEncoder.encode(password));
+                user.setToken("");
+                userService.saveUser(user);
+            }
+        }
+        return "redirect:/login";
+    }
 
 
 

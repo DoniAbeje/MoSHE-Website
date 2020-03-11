@@ -34,6 +34,9 @@ public class User implements UserDetails {
     @NotNull
     protected String fullName;
 
+    protected String email;
+    protected String token;
+
 
 
     @ManyToMany(fetch=FetchType.EAGER)
