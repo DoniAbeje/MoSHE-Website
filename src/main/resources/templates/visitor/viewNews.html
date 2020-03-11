@@ -160,7 +160,7 @@
         <!-- / News -->
         <!-- services -->
         <div class="col-lg-4 col-md-12" id="services">
-            <h3 class="my-3 custom-text-primary" th:text="#{Pictures}"> Pictures</h3>
+            <h3 th:if="${#lists.size(News.images)} > 1" class="my-3 custom-text-primary" th:text="#{Pictures}"> Pictures</h3>
             <div class="row">
                 <!-- Picture 1 -->
                 <div th:each="image, iter : ${News.images}" class="col-lg-12 py-2" >
