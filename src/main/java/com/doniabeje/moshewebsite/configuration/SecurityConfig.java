@@ -37,13 +37,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
                 .antMatchers("/addVacancy", "/vacancies", "/editVacancy/**", "/addTender", "/tenders", "/editTender/**",
-                        "/addNews", "/news", "/editNews/**", "/register", "/services", "/deleteService/**", "/editService/**", "/addService",
+                        "/addNews", "/news", "/editNews/**", "/services", "/deleteService/**", "/editService/**", "/addService",
                         "/links", "/deleteLink/**", "/editLink/**", "/addLink",
                         "/deleteNews/**", "/deleteTender/**", "/deleteVacancy/**", "/documents", "/addDocument", "/editDocument/**", "/deleteService/**",
                         "/deleteDocument/**", "/updateGeneralInformation", "/searchVacancies", "/searchTenders", "/searchNews", "/searchDocuments"
                         , "/deleteDocumentType/**", "/editDocumentType/**", "/addDocumentType"
                         , "/deleteJob/**", "/editJob/**", "/addJob", "/updateGeneralInformation", "/suggestions", "/deleteSuggestion/**"
                         , "/persons", "/deletePerson/**", "/editPerson/**", "/addPerson").hasAnyAuthority("ADMIN")
+                .antMatchers("/register").hasAnyAuthority("SUPER-ADMIN")
                 .antMatchers("/visitor/**", "/", "/viewNews/**", "/login").permitAll().and().formLogin()
                 .loginPage("/login")
                 .failureUrl("/login?error=true")
