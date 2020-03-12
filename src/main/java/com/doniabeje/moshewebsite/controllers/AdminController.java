@@ -910,11 +910,11 @@ public class AdminController {
         }
 
         user.setToken(UUID.randomUUID().toString());
-//        userService.saveUser(user);
+        userService.saveUser(user);
         final String baseUrl = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
         String link = baseUrl + "/reset-password" + "?username=" + user.getUsername() + "&token=" + user.getToken();
         sendPasswordResetEmail(user, link);
-        model.addAttribute("success", "Password reset link is sent to " + email + ". Check your inbox " + user);
+        model.addAttribute("success", "Password reset link is sent to " + email + ". Check your inbox ");
         return "passwordResetRequest";
     }
 
