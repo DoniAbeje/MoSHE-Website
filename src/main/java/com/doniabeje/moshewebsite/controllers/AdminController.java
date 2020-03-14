@@ -7,6 +7,7 @@ import com.doniabeje.moshewebsite.repositories.LinkRepository;
 import com.doniabeje.moshewebsite.repositories.SuggestionRepository;
 import com.doniabeje.moshewebsite.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -63,6 +64,7 @@ public class AdminController {
     private LinkRepository linkRepository;
     private JavaMailSender mailSender;
     private String imagesFolder = "/opt/tomcat/files/";
+    private Environment environment;
     private static final String DEFAULT_PAGE_SIZE = "10";
 
     @Autowired
@@ -70,7 +72,7 @@ public class AdminController {
                            VacancyService vacancyService, TenderService tenderService, NewsImageService newsImageService,
                            NewsService newsService, DocumentService documentService, ServiceService serviceService, DocumentTypeService documentTypeService,
                            JobService jobService, PersonService personService, GeneralInformationRepository generalInformationRepository
-                            ,SuggestionRepository suggestionRepository, LinkRepository linkRepository, JavaMailSender mailSender) {
+                            ,SuggestionRepository suggestionRepository, LinkRepository linkRepository, JavaMailSender mailSender, Environment environment) {
 
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
@@ -88,6 +90,7 @@ public class AdminController {
         this.suggestionRepository = suggestionRepository;
         this.linkRepository = linkRepository;
         this.mailSender = mailSender;
+        this.environment = environment;
     }
 
 
@@ -95,7 +98,7 @@ public class AdminController {
     public void sendPasswordResetEmail(User user, String link){
         SimpleMailMessage msg = new SimpleMailMessage();
         msg.setTo(user.getEmail());
-
+        msg.setFrom(environment.getProperty("spring.mail.username", "moshesupport@ethernet.edu.et"));
         msg.setSubject("Password Reset");
         msg.setText("Here is your password reset link " + link);
 
@@ -909,7 +912,9 @@ public class AdminController {
             return "passwordResetRequest";
         }
 
+
         user.setToken(UUID.randomUUID().toString());
+        System.out.println(user);
         userService.saveUser(user);
         final String baseUrl = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
         String link = baseUrl + "/reset-password" + "?username=" + user.getUsername() + "&token=" + user.getToken();
