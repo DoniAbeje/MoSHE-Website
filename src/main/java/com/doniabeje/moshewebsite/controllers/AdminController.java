@@ -389,7 +389,7 @@ public class AdminController {
 
 
     @GetMapping("/news")
-    public String news(Model model, @RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "size", defaultValue = DEFAULT_PAGE_SIZE) int size, @RequestParam(name = "sort", defaultValue = "title") String sort, @RequestParam(name = "ascending", defaultValue = "1") int ascending) {
+    public String news(Model model, @RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "size", defaultValue = DEFAULT_PAGE_SIZE) int size, @RequestParam(name = "sort", defaultValue = "dateTime") String sort, @RequestParam(name = "ascending", defaultValue = "0") int ascending) {
 
         PageRequest pageRequest = getPageRequest(page, size, sort, ascending);
         Page pages = newsService.findAll(pageRequest);
